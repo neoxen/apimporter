@@ -8,43 +8,23 @@ import java.sql.DriverManager;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 public class LicensingUploadToTempServer {
 
-    private static String url_my =
-            "jdbc:mysql://localhost:3306/db_credit_test?useSSL=false";
-
-    private static String user_my = "root";
-
-    private static String password_my = "kaifa001";
-
-    private static Connection con_my;
+    @Autowired
+    @Qualifier("tempJdbcTemplate")
+    private static JdbcTemplate tempJdbcTemplate;
 
     private static String sPath = "/Users/neo/Downloads/20161202/N1128.xls";
 
-    static {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new ExceptionInInitializerError(e);
-        }
-    }
-
     public static void main(String[] args) {
-        // open connection
-        openDatabase();
         // write data
         writeToDatabase();
 
         System.out.println("OK!");
-    }
-
-    private static void openDatabase() {
-        try {
-             con_my = DriverManager.getConnection(url_my, user_my, password_my);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private static void writeToDatabase() {
@@ -70,8 +50,7 @@ public class LicensingUploadToTempServer {
             if (LicensingWHBean.XK_WSH.contains("表格说明") || LicensingWHBean.isEmpty()) {
                 return;
             }
-            con_my.createStatement()
-                    .execute(
+            tempJdbcTemplate.execute(
                             "INSERT INTO tab_permisson_wuhan_month (`XK_WSH`,`XK_XMMC`,`XK_SPLB`,`XK_NR`,`XK_XDR`,`XK_XDR_SHXYM`,`XK_XDR_ZDM`,`XK_XDR_GSDJ`,`XK_XDR_SWDJ`,`XK_XDR_SFZ`,`XK_FR`,`XK_JDRQ`,`XK_JZQ`,`XK_XZJG`,`XK_ZT`,`DFBM`,`SJC`,`BZ`) VALUES "
                                     + LicensingWHBean.toValues());
 
