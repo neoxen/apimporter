@@ -16,11 +16,17 @@ public class LicensingTempToBaseServer {
 
     private static Connection con_my;
 
-    private static String url_ser = "jdbc:mysql://192.168.18.110:3306/cxwh_a?useSSL=false";
+//    private static String url_ser = "jdbc:mysql://192.168.18.110:3306/cxwh_a?useSSL=false";
+//
+//    private static String user_ser = "zxdc";
+//
+//    private static String password_ser = "zxdc";
 
-    private static String user_ser = "zxdc";
+    private static String url_ser = "jdbc:mysql://localhost:3306/cxwh_ap?useSSL=false";
 
-    private static String password_ser = "zxdc";
+    private static String user_ser = "root";
+
+    private static String password_ser = "kaifa001";
 
     private static Connection con_ser;
 

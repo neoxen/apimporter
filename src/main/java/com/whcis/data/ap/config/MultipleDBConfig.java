@@ -6,14 +6,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 
 @Configuration
+@PropertySource("classpath:database.properties")
 public class MultipleDBConfig {
     @Bean(name = "xychinaDS")
-    @ConfigurationProperties(prefix = "spring.ds_xychina")
+    @ConfigurationProperties(prefix = "datasource.ds_xychina")
     public DataSource xychinaDataSource() {
         return DataSourceBuilder.create().build();
     }
@@ -25,7 +27,7 @@ public class MultipleDBConfig {
 
     @Bean(name = "tempDS")
     @Primary
-    @ConfigurationProperties(prefix = "spring.ds_temp")
+    @ConfigurationProperties(prefix = "datasource.ds_temp")
     public DataSource tempDataSource() {
         return DataSourceBuilder.create().build();
     }
@@ -36,7 +38,7 @@ public class MultipleDBConfig {
     }
 
     @Bean(name = "baseDS")
-    @ConfigurationProperties(prefix = "spring.ds_base")
+    @ConfigurationProperties(prefix = "datasource.ds_base")
     public DataSource baseDataSource() {
         return DataSourceBuilder.create().build();
     }

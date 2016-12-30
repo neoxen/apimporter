@@ -18,7 +18,8 @@ public class PenaltyUploadToTempServer {
 
     private static Connection con_my;
 
-    private static String sPath = "/Users/neo/Downloads/20161202/N1128.xls";
+//    private static String sPath = "/Users/neo/Downloads/20161202/N1128.xls";
+    private static String sPath = "/Users/neo/Downloads/20161227/N1226.xls";
 
     static {
         try {

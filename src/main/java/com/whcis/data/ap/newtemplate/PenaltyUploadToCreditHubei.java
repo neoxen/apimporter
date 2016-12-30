@@ -11,16 +11,23 @@ import jxl.Sheet;
 import jxl.Workbook;
 
 public class PenaltyUploadToCreditHubei {
-    private static String url_ser = "jdbc:mysql://192.168.18.110:3306/upload_to_xychina?useSSL=false";
+//    private static String url_ser = "jdbc:mysql://192.168.18.110:3306/upload_to_xychina?useSSL=false";
+//
+//    private static String user_ser = "zxdc";
+//
+//    private static String password_ser = "zxdc";
 
-    private static String user_ser = "zxdc";
+    private static String url_ser = "jdbc:mysql://localhost:3306/upload_to_xychina?useSSL=false";
 
-    private static String password_ser = "zxdc";
+    private static String user_ser = "root";
+
+    private static String password_ser = "kaifa001";
 
     private static Connection con_ser;
 
 
-    private static String sPath = "/Users/neo/Downloads/20161202/NP2016-11-29.xls";
+//    private static String sPath = "/Users/neo/Downloads/20161202/N2016-11-30.xls";
+    private static String sPath = "/Users/neo/Downloads/20161227/N2016-12-21.xls";
 
     static {
         try {
@@ -50,7 +57,7 @@ public class PenaltyUploadToCreditHubei {
     private static void writeToDatabase() {
         try {
             Workbook readWB = Workbook.getWorkbook(new File(sPath));
-            Sheet readsheet = readWB.getSheet(0);
+            Sheet readsheet = readWB.getSheet(1);
             int rsColumns = readsheet.getColumns();
             int rsRows = readsheet.getRows();
             for (int i = 1; i < rsRows; i++) {
