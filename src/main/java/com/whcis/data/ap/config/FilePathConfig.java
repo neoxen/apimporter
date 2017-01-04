@@ -31,7 +31,7 @@ public class FilePathConfig {
         this.newTemplate = newTemplate;
     }
 
-    public String getOld_template() {
+    public String getOldTemplate() {
         return oldTemplate;
     }
 

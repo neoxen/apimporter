@@ -1,7 +1,7 @@
 
 package com.whcis.data.ap.oldtemplate;
 
-public class PermissonWHBean {
+public class LicensingOT {
     public static String id;// 用于数据传输发生错误时记录传输失败的数据
 
     public static String XK_XDR;// 行政相对人名称

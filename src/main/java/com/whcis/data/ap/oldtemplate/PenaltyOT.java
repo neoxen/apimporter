@@ -1,7 +1,7 @@
 
 package com.whcis.data.ap.oldtemplate;
 
-public class PenalyWHBean {
+public class PenaltyOT {
     public static String id;// 用于数据传输发生错误时记录传输失败的数据
 
     public static String CF_XDR_MC;// 行政相对人名称

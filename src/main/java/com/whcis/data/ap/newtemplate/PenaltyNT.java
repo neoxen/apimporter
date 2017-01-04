@@ -1,7 +1,7 @@
 
 package com.whcis.data.ap.newtemplate;
 
-public class PenaltyWHBean {
+public class PenaltyNT {
     public static String id;// 用于数据传输发生错误时记录传输失败的数据
 
     public static String CF_WSH;// 行政处罚决定书文号
