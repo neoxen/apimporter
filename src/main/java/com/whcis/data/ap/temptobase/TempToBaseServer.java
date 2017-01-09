@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class LicensingTempToBaseServer {
+public class TempToBaseServer {
 
     private JdbcTemplate tempJdbcTemplate;
 
@@ -26,7 +26,7 @@ public class LicensingTempToBaseServer {
     static HashMap<String, Integer> abbr_name = new HashMap<String, Integer>();
 
     @Autowired
-    public LicensingTempToBaseServer(JdbcTemplate tempJdbcTemplate, JdbcTemplate baseJdbcTemplate) {
+    public TempToBaseServer(JdbcTemplate tempJdbcTemplate, JdbcTemplate baseJdbcTemplate) {
         this.tempJdbcTemplate = tempJdbcTemplate;
         this.baseJdbcTemplate = baseJdbcTemplate;
     }
@@ -74,10 +74,10 @@ public class LicensingTempToBaseServer {
             SqlRowSet rowSet = tempJdbcTemplate.queryForRowSet(query);
             while (rowSet.next()) {
                 String sql = "";
+                String insertSQL = "INSERT INTO ap_administrative_licensing_temp (`object_name`,`current_state`,`legal_rep`,`credit_code`,`org_code`,`ic_code`,`tax_code`,`identity_code`,`title`,`licensing_type`,`licensing_code`,`licensing_detail`,`effective_date`,`invalid_date`,`licensing_organ`,`local_code`,`update_time`,`remark`, `import_date`) VALUES ";
 
                 try {
-                    sql = "INSERT INTO ap_administrative_licensing_temp (`object_name`,`current_state`,`legal_rep`,`credit_code`,`org_code`,`ic_code`,`tax_code`,`identity_code`,`title`,`licensing_type`,`licensing_code`,`licensing_detail`,`effective_date`,`invalid_date`,`licensing_organ`,`local_code`,`update_time`,`remark`, `import_date`) VALUES ("
-                            + withNull(rowSet.getString("XK_XDR"))
+                    sql = "(" + withNull(rowSet.getString("XK_XDR"))
                             + ","
                             + toState(withNull(rowSet.getString("XK_ZT")))
                             + ","
@@ -128,7 +128,7 @@ public class LicensingTempToBaseServer {
                     }
 
 
-                    baseJdbcTemplate.execute(sql);
+                    baseJdbcTemplate.execute(insertSQL+sql);
                 } catch (Exception e) {
                     System.out.println(rowSet.getInt("id") + " failed");
                     System.out.println(sql);
@@ -146,9 +146,9 @@ public class LicensingTempToBaseServer {
             SqlRowSet rowSet = tempJdbcTemplate.queryForRowSet(query);
             while (rowSet.next()) {
                 String sql = "";
+                String insertSQL = "INSERT INTO ap_administrative_penalty_temp (`object_name`,`current_state`,`legal_rep`,`credit_code`,`org_code`,`ic_code`,`tax_code`,`identity_code`,`title`,`penalty_type`,`penalty_code`,`penalty_cause`,`penalty_basis`,`penalty_result`,`effective_date`,`invalid_date`,`penalty_organ`,`local_code`,`update_time`,`remark`, `import_date`) VALUES ";
                 try {
-                    sql = "INSERT INTO ap_administrative_penalty_temp (`object_name`,`current_state`,`legal_rep`,`credit_code`,`org_code`,`ic_code`,`tax_code`,`identity_code`,`title`,`penalty_type`,`penalty_code`,`penalty_cause`,`penalty_basis`,`penalty_result`,`effective_date`,`invalid_date`,`penalty_organ`,`local_code`,`update_time`,`remark`, `import_date`) VALUES ("
-                            + withNull(rowSet.getString("CF_XDR_MC"))
+                    sql = "(" + withNull(rowSet.getString("CF_XDR_MC"))
                             + ","
                             + toState(withNull(rowSet.getString("CF_ZT")))
                             + ","
@@ -202,7 +202,7 @@ public class LicensingTempToBaseServer {
                         continue;
                     }
 
-                    baseJdbcTemplate.execute(sql);
+                    baseJdbcTemplate.execute(insertSQL + sql);
                 } catch (Exception e) {
                     System.out.println(rowSet.getInt("id") + " failed");
                     System.out.println(sql);

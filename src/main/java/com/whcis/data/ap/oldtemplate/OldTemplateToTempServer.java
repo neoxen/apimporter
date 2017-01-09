@@ -25,17 +25,17 @@ public class OldTemplateToTempServer {
     }
 
 
-    public void StepThree() {
-        System.out.println("***********************************************************");
-        System.out.println("* Step Three: Upload Old Template To The Temporary Server *");
-        System.out.println("***********************************************************");
+    public void stepFour() {
+        System.out.println("*******************************************************");
+        System.out.println("* Step 4: Upload Old Template To The Temporary Server *");
+        System.out.println("*******************************************************");
 
         String filePath = filePathConfig.getOldTemplate();
         writeToDatabase(filePath);
 
-        System.out.println("**********************");
-        System.out.println("* Finish Step Three! *");
-        System.out.println("**********************");
+        System.out.println("******************");
+        System.out.println("* Finish Step 4! *");
+        System.out.println("******************");
     }
 
 

@@ -28,16 +28,16 @@ public class UploadToCreditHubei {
     }
 
     public void stepOne() {
-        System.out.println("********************************************************");
-        System.out.println("* Step One: Upload New Template To Credit Hubei Server *");
-        System.out.println("********************************************************");
+        System.out.println("******************************************************");
+        System.out.println("* Step 1: Upload New Template To Credit Hubei Server *");
+        System.out.println("******************************************************");
 
         String filePath = filePathConfig.getXyChina();
         writeToDatabase(filePath);
 
-        System.out.println("********************");
-        System.out.println("* Finish Step One! *");
-        System.out.println("********************");
+        System.out.println("******************");
+        System.out.println("* Finish Step 1! *");
+        System.out.println("******************");
     }
 
     private void writeToDatabase(String filePath) {
@@ -64,7 +64,11 @@ public class UploadToCreditHubei {
         for (int i = 1; i < pRows; i++) {
             for (int j = 0; j < pColumns; j++) {
                 Cell cell = penaltySheet.getCell(j, i);
-                PenaltyNT.setX(j, cell.getContents());
+                if (type == 0) {
+                    LicensingNT.setX(j, cell.getContents());
+                } else {
+                    PenaltyNT.setX(j, cell.getContents());
+                }
             }
             if (type == 0) {
                 insertLicensing(i);
@@ -80,6 +84,7 @@ public class UploadToCreditHubei {
     }
 
     private void insertLicensing(int intRow) {
+        int index = intRow + 1;
         try {
             if (LicensingNT.XK_WSH.contains("表格说明") || LicensingNT.isEmpty()) {
                 return;
@@ -90,7 +95,7 @@ public class UploadToCreditHubei {
             SqlRowSet rowSet = xychinaJdbcTemplate.queryForRowSet(query);
 
             if (!rowSet.wasNull()) {
-                System.out.println(intRow + " Record duplicated: " + LicensingNT.toValues());
+                System.out.println("Line " + index + " Record duplicated: " + LicensingNT.toValues());
                 return;
             }
             xychinaJdbcTemplate.execute(
@@ -99,7 +104,7 @@ public class UploadToCreditHubei {
 
         } catch (Exception e) {
             System.out
-                    .println(intRow + " Insert failed: " + LicensingNT.toValues());
+                    .println("Line " + index + " Insert failed: " + LicensingNT.toValues());
             e.printStackTrace();
         } finally {
             LicensingNT.clean();
@@ -107,6 +112,7 @@ public class UploadToCreditHubei {
     }
 
     private void insertPenalty(int intRow) {
+        int index = intRow + 1;
         try {
             if (PenaltyNT.CF_WSH.contains("表格说明") || PenaltyNT.isEmpty()) {
                 return;
@@ -117,7 +123,7 @@ public class UploadToCreditHubei {
             SqlRowSet rowSet = xychinaJdbcTemplate.queryForRowSet(query);
 
             if (!rowSet.wasNull()) {
-                System.out.println(intRow + " Record duplicated: " + PenaltyNT.toValues());
+                System.out.println("Line " + index + " Record duplicated: " + PenaltyNT.toValues());
                 return;
             }
             xychinaJdbcTemplate.execute(
@@ -126,7 +132,7 @@ public class UploadToCreditHubei {
         } catch (Exception e) {
             e.printStackTrace();
             System.out
-                    .println(intRow + " Insert failed: " + PenaltyNT.toValues());
+                    .println("Line " + index + " Insert failed: " + PenaltyNT.toValues());
         } finally {
             PenaltyNT.clean();
         }

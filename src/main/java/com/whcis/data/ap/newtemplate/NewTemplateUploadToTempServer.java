@@ -28,16 +28,29 @@ public class NewTemplateUploadToTempServer {
     }
 
     public void stepTwo() {
-        System.out.println("*********************************************************");
-        System.out.println("* Step Two: Upload New Template To The Temporary Server *");
-        System.out.println("*********************************************************");
+        System.out.println("**************************************************");
+        System.out.println("* Step 2: Upload XyChina To The Temporary Server *");
+        System.out.println("**************************************************");
+
+        String filePath = filePathConfig.getXyChina();
+        writeToDatabase(filePath);
+
+        System.out.println("******************");
+        System.out.println("* Finish Step 2! *");
+        System.out.println("******************");
+    }
+
+    public void stepThree() {
+        System.out.println("*******************************************************");
+        System.out.println("* Step 3: Upload New Template To The Temporary Server *");
+        System.out.println("*******************************************************");
 
         String filePath = filePathConfig.getNewTemplate();
         writeToDatabase(filePath);
 
-        System.out.println("********************");
-        System.out.println("* Finish Step Two! *");
-        System.out.println("********************");
+        System.out.println("******************");
+        System.out.println("* Finish Step 3! *");
+        System.out.println("******************");
     }
 
 

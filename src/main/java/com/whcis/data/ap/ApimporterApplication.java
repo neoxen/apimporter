@@ -4,6 +4,7 @@ import com.whcis.data.ap.config.FilePathConfig;
 import com.whcis.data.ap.newtemplate.NewTemplateUploadToTempServer;
 import com.whcis.data.ap.newtemplate.UploadToCreditHubei;
 import com.whcis.data.ap.oldtemplate.OldTemplateToTempServer;
+import com.whcis.data.ap.temptobase.TempToBaseServer;
 import com.whcis.data.ap.temptobase.TruncateTempTables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,10 +33,13 @@ public class ApimporterApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
-		//new UploadToCreditHubei(filePathConfig, xychinaJdbcTemplate).stepOne();
-//		new NewTemplateUploadToTempServer(filePathConfig, tempJdbcTemplate).stepTwo();
-//		new OldTemplateToTempServer(filePathConfig, tempJdbcTemplate).StepThree();
-		TruncateTempTables.truncateTables(tempJdbcTemplate);
+		new UploadToCreditHubei(filePathConfig, xychinaJdbcTemplate).stepOne();
+		NewTemplateUploadToTempServer newToTemp = new NewTemplateUploadToTempServer(filePathConfig, tempJdbcTemplate);
+		newToTemp.stepTwo();
+		newToTemp.stepThree();
+		new OldTemplateToTempServer(filePathConfig, tempJdbcTemplate).stepFour();
+		new TempToBaseServer(tempJdbcTemplate, baseJdbcTemplate).stepFive();
+		TruncateTempTables.truncateTempTables(tempJdbcTemplate);
 	}
 
 	public static void main(String[] args) {
