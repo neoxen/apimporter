@@ -1,6 +1,8 @@
 
 package com.whcis.data.ap.oldtemplate;
 
+import com.whcis.data.ap.util.Common;
+
 public class Test {
 
     public static void main(String[] args) {

@@ -1,6 +1,8 @@
 
 package com.whcis.data.ap.oldtemplate;
 
+import com.whcis.data.ap.util.Common;
+
 public class LicensingOT {
     public static String id;// 用于数据传输发生错误时记录传输失败的数据
 

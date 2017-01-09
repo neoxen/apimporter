@@ -1,5 +1,5 @@
 
-package com.whcis.data.ap.oldtemplate;
+package com.whcis.data.ap.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,6 +38,10 @@ public class Common {
 
         if (s.indexOf("-") == 2 || s.indexOf("/") == 2 || s.indexOf(".") == 2) {
             s = "20" + s;
+        }
+
+        if (s.contains("00:00:00")) {
+            s = s.substring(0, s.indexOf("00:00:00"));
         }
 
         if (s.contains("00:00:00.0")) {
