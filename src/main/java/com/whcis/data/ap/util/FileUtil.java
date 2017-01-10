@@ -7,6 +7,8 @@ import com.whcis.data.ap.oldtemplate.PenaltyOT;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -14,11 +16,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
  */
 public class FileUtil {
 
+    private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
+
     public static void proceedFile(Workbook readWB, JdbcTemplate jdbcTemplate, int type, int offset) {
         if (type == 0) {
-            System.out.println("Start inserting licensings ...");
+            logger.info("Start inserting licensings ...");
         } else {
-            System.out.println("Start inserting penalties ...");
+            logger.info("Start inserting penalties ...");
         }
         Sheet sheet = readWB.getSheet(type);
         int columns = sheet.getColumns();
@@ -56,9 +60,9 @@ public class FileUtil {
             }
         }
         if (type == 0) {
-            System.out.println("Finish inserting licensings ...");
+            logger.info("Finish inserting licensings ...");
         } else {
-            System.out.println("Finish inserting penalties ...");
+            logger.info("Finish inserting penalties ...");
         }
     }
 
@@ -72,9 +76,7 @@ public class FileUtil {
                             + LicensingNT.toValues());
 
         } catch (Exception e) {
-            System.out
-                    .println(
-                            intRow + " Licensing insert failed: " + LicensingNT.toValues());
+            logger.error(intRow + " Licensing insert failed: " + LicensingNT.toValues());
             e.printStackTrace();
         } finally {
             LicensingNT.clean();
@@ -91,8 +93,7 @@ public class FileUtil {
                             + PenaltyNT.toValues());
         } catch (Exception e) {
             e.printStackTrace();
-            System.out
-                    .println(intRow + " Penalty insert failed: " + PenaltyNT.toValues());
+            logger.error(intRow + " Penalty insert failed: " + PenaltyNT.toValues());
         } finally {
             PenaltyNT.clean();
         }
@@ -107,8 +108,7 @@ public class FileUtil {
                             "INSERT INTO tab_permisson_wuhan_month (`XK_XDR`,`XK_FR`,`XK_XDR_SHXYM`,`XK_XDR_ZDM`,`XK_XDR_GSDJ`,`XK_XDR_SWDJ`,`XK_XDR_SFZ`,`XK_XMMC`,`XK_SPLB`,`XK_WSH`,`XK_NR`,`XK_JDRQ`,`XK_JZQ`,`XK_XZJG`,`XK_ZT`,`DFBM`,`SJC`,`BZ`,`QTXX`,`SJMC`) VALUES "
                                     + LicensingOT.toValues());
         } catch (Exception e) {
-            System.out
-                    .println(intRow + " insert failed: " + LicensingOT.toValues());
+            logger.error(intRow + " insert failed: " + LicensingOT.toValues());
         } finally {
             LicensingOT.clean();
         }
@@ -123,8 +123,7 @@ public class FileUtil {
                             "INSERT INTO tab_penaly_wuhan_month (`CF_XDR_MC`,`CF_FR`,`CF_XDR_SHXYM`,`CF_XDR_ZDM`,`CF_XDR_GSDJ`,`CF_XDR_SWDJ`,`CF_XDR_SFZ`,`CF_AJMC`,`CF_CFLB1`,`CF_WSH`,`CF_SY`,`CF_YJ`,`CF_JG`,`CF_JDRQ`,`CF_JZRQ`,`CF_XZJG`,`CF_ZT`,`DFBM`,`SJC`,`BZ`,`QT`,`CF_CFMC`) VALUES "
                                     + PenaltyOT.toValues());
         } catch (Exception e) {
-            System.out
-                    .println(intRow + " insert failed: " + PenaltyOT.toValues());
+            logger.error(intRow + " insert failed: " + PenaltyOT.toValues());
         } finally {
             PenaltyOT.clean();
         }

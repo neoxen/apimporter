@@ -6,6 +6,8 @@ import com.whcis.data.ap.util.FileUtil;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -16,6 +18,7 @@ import java.io.File;
 @Component
 @EnableConfigurationProperties({FilePathConfig.class})
 public class NewTemplateUploadToTempServer {
+    private static final Logger logger = LoggerFactory.getLogger(NewTemplateUploadToTempServer.class);
 
     private FilePathConfig filePathConfig;
 
@@ -28,29 +31,29 @@ public class NewTemplateUploadToTempServer {
     }
 
     public void stepTwo() {
-        System.out.println("**************************************************");
-        System.out.println("* Step 2: Upload XyChina To The Temporary Server *");
-        System.out.println("**************************************************");
+        logger.info("**************************************************");
+        logger.info("* Step 2: Upload XyChina To The Temporary Server *");
+        logger.info("**************************************************");
 
         String filePath = filePathConfig.getXyChina();
         writeToDatabase(filePath);
 
-        System.out.println("******************");
-        System.out.println("* Finish Step 2! *");
-        System.out.println("******************");
+        logger.info("******************");
+        logger.info("* Finish Step 2! *");
+        logger.info("******************");
     }
 
     public void stepThree() {
-        System.out.println("*******************************************************");
-        System.out.println("* Step 3: Upload New Template To The Temporary Server *");
-        System.out.println("*******************************************************");
+        logger.info("*******************************************************");
+        logger.info("* Step 3: Upload New Template To The Temporary Server *");
+        logger.info("*******************************************************");
 
         String filePath = filePathConfig.getNewTemplate();
         writeToDatabase(filePath);
 
-        System.out.println("******************");
-        System.out.println("* Finish Step 3! *");
-        System.out.println("******************");
+        logger.info("******************");
+        logger.info("* Finish Step 3! *");
+        logger.info("******************");
     }
 
 

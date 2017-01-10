@@ -1,6 +1,8 @@
 
 package com.whcis.data.ap.temptobase;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -14,6 +16,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class TempToBaseServer {
+
+    private static final Logger logger = LoggerFactory.getLogger(TempToBaseServer.class);
 
     private JdbcTemplate tempJdbcTemplate;
 
@@ -32,20 +36,20 @@ public class TempToBaseServer {
     }
 
     public void stepFive() {
-        System.out.println("************************************************************");
-        System.out.println("* Step 5: Upload Data from Temporary Server To Base Server *");
-        System.out.println("************************************************************");
+        logger.info("************************************************************");
+        logger.info("* Step 5: Upload Data from Temporary Server To Base Server *");
+        logger.info("************************************************************");
 
         getName();
 
-        System.out.println("Importing licensings to server ... ...");
+        logger.info("Importing licensings to server ... ...");
         setLicensingData();
-        System.out.println("Importing penalties to server ... ...");
+        logger.info("Importing penalties to server ... ...");
         setPenaltyData();
 
-        System.out.println("******************");
-        System.out.println("* Finish Step 5! *");
-        System.out.println("******************");
+        logger.info("******************");
+        logger.info("* Finish Step 5! *");
+        logger.info("******************");
     }
 
     private void getName() {
@@ -123,15 +127,14 @@ public class TempToBaseServer {
                     SqlRowSet checkRowSet = baseJdbcTemplate.queryForRowSet(checkQuery);
 
                     if (!checkRowSet.wasNull()) {
-                        System.out.println(rowSet.getInt("id") + " Record duplicated: " + sql);
+                        logger.warn(rowSet.getInt("id") + " Record duplicated: " + sql);
                         continue;
                     }
 
 
                     baseJdbcTemplate.execute(insertSQL+sql);
                 } catch (Exception e) {
-                    System.out.println(rowSet.getInt("id") + " failed");
-                    System.out.println(sql);
+                    logger.error(rowSet.getInt("id") + " failed: " + sql);
                     e.printStackTrace();
                 }
             }
@@ -198,14 +201,13 @@ public class TempToBaseServer {
                     SqlRowSet checkRowSet = baseJdbcTemplate.queryForRowSet(checkQuery);
 
                     if (!checkRowSet.wasNull()) {
-                        System.out.println(rowSet.getInt("id") + " Record duplicated: " + sql);
+                        logger.warn(rowSet.getInt("id") + " Record duplicated: " + sql);
                         continue;
                     }
 
                     baseJdbcTemplate.execute(insertSQL + sql);
                 } catch (Exception e) {
-                    System.out.println(rowSet.getInt("id") + " failed");
-                    System.out.println(sql);
+                    logger.error(rowSet.getInt("id") + " failed: " + sql);
                     e.printStackTrace();
                 }
             }

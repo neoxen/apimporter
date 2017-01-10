@@ -5,6 +5,8 @@ import com.whcis.data.ap.config.FilePathConfig;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,6 +19,8 @@ import java.io.File;
 @EnableConfigurationProperties({FilePathConfig.class})
 public class UploadToCreditHubei {
 
+    private static final Logger logger = LoggerFactory.getLogger(UploadToCreditHubei.class);
+
     private FilePathConfig filePathConfig;
 
     private JdbcTemplate xychinaJdbcTemplate;
@@ -28,16 +32,16 @@ public class UploadToCreditHubei {
     }
 
     public void stepOne() {
-        System.out.println("******************************************************");
-        System.out.println("* Step 1: Upload New Template To Credit Hubei Server *");
-        System.out.println("******************************************************");
+        logger.info("******************************************************");
+        logger.info("* Step 1: Upload New Template To Credit Hubei Server *");
+        logger.info("******************************************************");
 
         String filePath = filePathConfig.getXyChina();
         writeToDatabase(filePath);
 
-        System.out.println("******************");
-        System.out.println("* Finish Step 1! *");
-        System.out.println("******************");
+        logger.info("******************");
+        logger.info("* Finish Step 1! *");
+        logger.info("******************");
     }
 
     private void writeToDatabase(String filePath) {
@@ -54,9 +58,9 @@ public class UploadToCreditHubei {
 
     private void proceedFile (Workbook readWB, int type) {
         if (type == 0) {
-            System.out.println("Start inserting licensings ...");
+            logger.info("Start inserting licensings ...");
         } else {
-            System.out.println("Start inserting penalties ...");
+            logger.info("Start inserting penalties ...");
         }
         Sheet penaltySheet = readWB.getSheet(type);
         int pColumns = penaltySheet.getColumns();
@@ -77,9 +81,9 @@ public class UploadToCreditHubei {
             }
         }
         if (type == 0) {
-            System.out.println("Finish inserting licensings ...");
+            logger.info("Finish inserting licensings ...");
         } else {
-            System.out.println("Finish inserting penalties ...");
+            logger.info("Finish inserting penalties ...");
         }
     }
 
@@ -95,7 +99,7 @@ public class UploadToCreditHubei {
             SqlRowSet rowSet = xychinaJdbcTemplate.queryForRowSet(query);
 
             if (!rowSet.wasNull()) {
-                System.out.println("Line " + index + " Record duplicated: " + LicensingNT.toValues());
+                logger.warn("Line " + index + " Record duplicated: " + LicensingNT.toValues());
                 return;
             }
             xychinaJdbcTemplate.execute(
@@ -103,8 +107,7 @@ public class UploadToCreditHubei {
                                     + LicensingNT.toValues());
 
         } catch (Exception e) {
-            System.out
-                    .println("Line " + index + " Insert failed: " + LicensingNT.toValues());
+            logger.error("Line " + index + " Insert failed: " + LicensingNT.toValues());
             e.printStackTrace();
         } finally {
             LicensingNT.clean();
@@ -123,7 +126,7 @@ public class UploadToCreditHubei {
             SqlRowSet rowSet = xychinaJdbcTemplate.queryForRowSet(query);
 
             if (!rowSet.wasNull()) {
-                System.out.println("Line " + index + " Record duplicated: " + PenaltyNT.toValues());
+                logger.warn("Line " + index + " Record duplicated: " + PenaltyNT.toValues());
                 return;
             }
             xychinaJdbcTemplate.execute(
@@ -131,8 +134,7 @@ public class UploadToCreditHubei {
                                     + PenaltyNT.toValues());
         } catch (Exception e) {
             e.printStackTrace();
-            System.out
-                    .println("Line " + index + " Insert failed: " + PenaltyNT.toValues());
+            logger.error("Line " + index + " Insert failed: " + PenaltyNT.toValues());
         } finally {
             PenaltyNT.clean();
         }

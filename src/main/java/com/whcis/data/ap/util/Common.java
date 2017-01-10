@@ -1,10 +1,15 @@
 
 package com.whcis.data.ap.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Common {
+    private static final Logger logger = LoggerFactory.getLogger(Common.class);
+
     static SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 
     static SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd");
@@ -84,7 +89,7 @@ public class Common {
         } catch (Exception e) {
 
         }
-        System.out.println(s);
+        logger.warn(s);
         return "null";
     }
 
