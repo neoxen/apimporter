@@ -98,7 +98,7 @@ public class UploadToCreditHubei {
 
             SqlRowSet rowSet = xychinaJdbcTemplate.queryForRowSet(query);
 
-            if (!rowSet.wasNull()) {
+            if (rowSet.next()) {
                 logger.warn("Line " + index + " Record duplicated: " + LicensingNT.toValues());
                 return;
             }
@@ -125,7 +125,7 @@ public class UploadToCreditHubei {
 
             SqlRowSet rowSet = xychinaJdbcTemplate.queryForRowSet(query);
 
-            if (!rowSet.wasNull()) {
+            if (rowSet.next()) {
                 logger.warn("Line " + index + " Record duplicated: " + PenaltyNT.toValues());
                 return;
             }
