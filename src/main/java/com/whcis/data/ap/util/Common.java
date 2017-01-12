@@ -11,21 +11,31 @@ public class Common {
     private static final Logger logger = LoggerFactory.getLogger(Common.class);
 
     static SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+    static SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-ddHH:mm");
+    static SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
+    static SimpleDateFormat sdf4 = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss.S");
 
-    static SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy/MM/dd");
+    static SimpleDateFormat sdf5 = new SimpleDateFormat("yyyy.MM.dd");
+    static SimpleDateFormat sdf6 = new SimpleDateFormat("yyyy.MM.ddHH:mm");
+    static SimpleDateFormat sdf7 = new SimpleDateFormat("yyyy.MM.ddHH:mm:ss");
+    static SimpleDateFormat sdf8 = new SimpleDateFormat("yyyy.MM.ddHH:mm:ss.S");
 
-    static SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy.MM.dd");
+    static SimpleDateFormat sdf9 = new SimpleDateFormat("yyyy.MM");
 
-    static SimpleDateFormat sdf4 = new SimpleDateFormat("yyyy.MM");
-
-    static SimpleDateFormat sdf5 = new SimpleDateFormat("yyyy年MM月dd日");
-
-    static SimpleDateFormat sdf6 = new SimpleDateFormat("yyyy,MM,dd");
+    static SimpleDateFormat sdf10 = new SimpleDateFormat("yyyy年MM月dd日");
 
     public static String sToDate(String s) {
         s = s.trim().replace(" ", "").replace("�", "");
 
+        s = s.replace(",", "-").replace("，", "-").replace("：", ":");
+
+        s = s.replace("/", "-");
+
         if (s.equals("长期")) {
+            return "'2099-12-31'";
+        }
+
+        if (s.equals("9999/12/31") || s.equals("9999-12-31") || s.equals("2099/12/31")) {
             return "'2099-12-31'";
         }
 
@@ -85,6 +95,30 @@ public class Common {
         }
         try {
             Date date = new Date(sdf6.parse(s).getTime());
+            return "'" + sdf1.format(date) + "'";
+        } catch (Exception e) {
+
+        }
+        try {
+            Date date = new Date(sdf7.parse(s).getTime());
+            return "'" + sdf1.format(date) + "'";
+        } catch (Exception e) {
+
+        }
+        try {
+            Date date = new Date(sdf8.parse(s).getTime());
+            return "'" + sdf1.format(date) + "'";
+        } catch (Exception e) {
+
+        }
+        try {
+            Date date = new Date(sdf9.parse(s).getTime());
+            return "'" + sdf1.format(date) + "'";
+        } catch (Exception e) {
+
+        }
+        try {
+            Date date = new Date(sdf10.parse(s).getTime());
             return "'" + sdf1.format(date) + "'";
         } catch (Exception e) {
 
