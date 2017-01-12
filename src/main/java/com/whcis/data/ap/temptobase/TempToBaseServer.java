@@ -23,7 +23,7 @@ public class TempToBaseServer {
 
     private JdbcTemplate baseJdbcTemplate;
 
-    static SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     static HashMap<String, Integer> name = new HashMap<String, Integer>();
 
@@ -126,7 +126,7 @@ public class TempToBaseServer {
 
                     SqlRowSet checkRowSet = baseJdbcTemplate.queryForRowSet(checkQuery);
 
-                    if (!checkRowSet.wasNull()) {
+                    if (checkRowSet.next()) {
                         logger.warn(rowSet.getInt("id") + " Record duplicated: " + sql);
                         continue;
                     }
@@ -200,7 +200,7 @@ public class TempToBaseServer {
 
                     SqlRowSet checkRowSet = baseJdbcTemplate.queryForRowSet(checkQuery);
 
-                    if (!checkRowSet.wasNull()) {
+                    if (checkRowSet.next()) {
                         logger.warn(rowSet.getInt("id") + " Record duplicated: " + sql);
                         continue;
                     }
@@ -288,11 +288,11 @@ public class TempToBaseServer {
     private static String withNullDate(Date date) {
         if (date == null)
             return "null";
-        return "'" + sdf1.format(date) + "'";
+        return "'" + sdf.format(date) + "'";
     }
 
     private static String importDate() {
-        return "'" + sdf1.format(new java.util.Date()) + "'";
+        return "'" + sdf.format(new java.util.Date()) + "'";
     }
 
 
