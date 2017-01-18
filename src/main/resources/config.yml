@@ -1,0 +1,8 @@
+# file paths
+development:
+  proceed:
+    file:
+      xyChina: /Users/neo/Downloads/20170111/N2017-01-05.xls
+      newTemplate: /Users/neo/Downloads/20170111/N0109.xls
+      oldTemplate: /Users/neo/Downloads/20170111/O0109.xls
+      onlyToBase:

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
  * Created by neo on 2016/12/28.
  */
 @Configuration
-@ConfigurationProperties(locations = "classpath:config.properties",
+@ConfigurationProperties(locations = "classpath:config.yml",
         ignoreUnknownFields = false, prefix = "development.proceed.file")
 public class FilePathConfig {
     private String xyChina;
