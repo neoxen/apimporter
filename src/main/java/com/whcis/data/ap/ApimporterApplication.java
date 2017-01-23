@@ -35,16 +35,29 @@ public class ApimporterApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) {
 		// 1
-		new UploadToCreditHubei(filePathConfig, xychinaJdbcTemplate).stepOne();
+//		xyChina();
 
 		// 2
+//		tempServer();
+
+		// 3
+		baseServer();
+	}
+
+	public void xyChina() {
+		new UploadToCreditHubei(filePathConfig, xychinaJdbcTemplate).stepOne();
+	}
+
+	public void tempServer() {
 		TruncateTempTables.truncateTempTables(tempJdbcTemplate);
 		NewTemplateUploadToTempServer newToTemp = new NewTemplateUploadToTempServer(filePathConfig, tempJdbcTemplate);
 		newToTemp.stepTwo();
 		newToTemp.stepThree();
 		new OldTemplateToTempServer(filePathConfig, tempJdbcTemplate).stepFour();
+	}
 
-		// 3
+	public void baseServer() {
+		TruncateTempTables.truncateBaseTables(baseJdbcTemplate);
 		ServerInfo.printMaxRecordID(baseJdbcTemplate);
 		new TempToBaseServer(tempJdbcTemplate, baseJdbcTemplate).stepFive();
 		ServerInfo.copyNewRecords(baseJdbcTemplate);
