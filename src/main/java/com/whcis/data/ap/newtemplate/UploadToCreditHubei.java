@@ -87,6 +87,20 @@ public class UploadToCreditHubei {
         }
     }
 
+    private boolean duplicateChecking(int type) {
+        String query;
+        if (type == 0) {
+            query = "select * from licensing_tem where " + LicensingNT.toID() + " limit 1";
+        } else {
+            query = "select * from penaly_tem where " + PenaltyNT.toID() + " limit 1";
+        }
+
+        SqlRowSet rowSet = xychinaJdbcTemplate.queryForRowSet(query);
+
+        return rowSet.next();
+
+    }
+
     private void insertLicensing(int intRow) {
         int index = intRow + 1;
         try {
@@ -94,11 +108,8 @@ public class UploadToCreditHubei {
                 return;
             }
             // duplication check
-            String query = "select * from licensing_tem where " + LicensingNT.toID() + " limit 1";
 
-            SqlRowSet rowSet = xychinaJdbcTemplate.queryForRowSet(query);
-
-            if (rowSet.next()) {
+            if (duplicateChecking(0)) {
                 logger.warn("Line " + index + " Record duplicated: " + LicensingNT.toValues());
                 return;
             }
@@ -121,11 +132,7 @@ public class UploadToCreditHubei {
                 return;
             }
             // duplication check
-            String query = "select * from penaly_tem where " + PenaltyNT.toID() + " limit 1";
-
-            SqlRowSet rowSet = xychinaJdbcTemplate.queryForRowSet(query);
-
-            if (rowSet.next()) {
+            if (duplicateChecking(1)) {
                 logger.warn("Line " + index + " Record duplicated: " + PenaltyNT.toValues());
                 return;
             }
