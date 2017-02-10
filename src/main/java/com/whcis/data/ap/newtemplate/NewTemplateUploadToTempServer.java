@@ -31,29 +31,21 @@ public class NewTemplateUploadToTempServer {
     }
 
     public void stepTwo() {
-        logger.info("**************************************************");
-        logger.info("* Step 2: Upload XyChina To The Temporary Server *");
-        logger.info("**************************************************");
+        logger.info("========== Step 2: Upload XyChina To The Temporary Server ==========");
 
         String filePath = filePathConfig.getXyChina();
         writeToDatabase(filePath);
 
-        logger.info("******************");
-        logger.info("* Finish Step 2! *");
-        logger.info("******************");
+        logger.info("========== Finish Step 2! ==========");
     }
 
     public void stepThree() {
-        logger.info("*******************************************************");
-        logger.info("* Step 3: Upload New Template To The Temporary Server *");
-        logger.info("*******************************************************");
+        logger.info("========== Step 3: Upload New Template To The Temporary Server ==========");
 
         String filePath = filePathConfig.getNewTemplate();
         writeToDatabase(filePath);
 
-        logger.info("******************");
-        logger.info("* Finish Step 3! *");
-        logger.info("******************");
+        logger.info("========== Finish Step 3! ==========");
     }
 
 

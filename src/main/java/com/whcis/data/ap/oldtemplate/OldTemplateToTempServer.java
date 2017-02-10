@@ -30,16 +30,12 @@ public class OldTemplateToTempServer {
 
 
     public void stepFour() {
-        logger.info("*******************************************************");
-        logger.info("* Step 4: Upload Old Template To The Temporary Server *");
-        logger.info("*******************************************************");
+        logger.info("========== Step 4: Upload Old Template To The Temporary Server ==========");
 
         String filePath = filePathConfig.getOldTemplate();
         writeToDatabase(filePath);
 
-        logger.info("******************");
-        logger.info("* Finish Step 4! *");
-        logger.info("******************");
+        logger.info("========== Finish Step 4! ==========");
     }
 
 

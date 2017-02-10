@@ -20,9 +20,9 @@ public class FileUtil {
 
     public static void proceedFile(Workbook readWB, JdbcTemplate jdbcTemplate, int type, int offset) {
         if (type == 0) {
-            logger.info("Start inserting licensings ...");
+            logger.info("<===== Start inserting licensings ...");
         } else {
-            logger.info("Start inserting penalties ...");
+            logger.info("<===== Start inserting penalties ...");
         }
         Sheet sheet = readWB.getSheet(type);
         int columns = sheet.getColumns();
@@ -60,9 +60,9 @@ public class FileUtil {
             }
         }
         if (type == 0) {
-            logger.info("Finish inserting licensings ...");
+            logger.info("<===== Finish inserting licensings ...");
         } else {
-            logger.info("Finish inserting penalties ...");
+            logger.info("<===== Finish inserting penalties ...");
         }
     }
 

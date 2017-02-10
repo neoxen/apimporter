@@ -36,20 +36,16 @@ public class TempToBaseServer {
     }
 
     public void stepFive() {
-        logger.info("************************************************************");
-        logger.info("* Step 5: Upload Data from Temporary Server To Base Server *");
-        logger.info("************************************************************");
+        logger.info("========== Step 5: Upload Data from Temporary Server To Base Server ==========");
 
         getName();
 
-        logger.info("Importing licensings to server ... ...");
+        logger.info("<===== Importing licensings to server ... ...");
         setLicensingData();
-        logger.info("Importing penalties to server ... ...");
+        logger.info("<===== Importing penalties to server ... ...");
         setPenaltyData();
 
-        logger.info("******************");
-        logger.info("* Finish Step 5! *");
-        logger.info("******************");
+        logger.info("========== Finish Step 5! ==========");
     }
 
     private void getName() {

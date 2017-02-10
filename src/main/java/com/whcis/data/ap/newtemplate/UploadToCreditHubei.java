@@ -32,16 +32,12 @@ public class UploadToCreditHubei {
     }
 
     public void stepOne() {
-        logger.info("******************************************************");
-        logger.info("* Step 1: Upload New Template To Credit Hubei Server *");
-        logger.info("******************************************************");
+        logger.info("========== Step 1: Upload New Template To Credit Hubei Server ==========");
 
         String filePath = filePathConfig.getXyChina();
         writeToDatabase(filePath);
 
-        logger.info("******************");
-        logger.info("* Finish Step 1! *");
-        logger.info("******************");
+        logger.info("========== Finish Step 1! ==========");
     }
 
     private void writeToDatabase(String filePath) {
@@ -58,9 +54,9 @@ public class UploadToCreditHubei {
 
     private void proceedFile (Workbook readWB, int type) {
         if (type == 0) {
-            logger.info("Start inserting licensings ...");
+            logger.info("<===== Start inserting licensings ...");
         } else {
-            logger.info("Start inserting penalties ...");
+            logger.info("<===== Start inserting penalties ...");
         }
         Sheet penaltySheet = readWB.getSheet(type);
         int pColumns = penaltySheet.getColumns();
@@ -81,9 +77,9 @@ public class UploadToCreditHubei {
             }
         }
         if (type == 0) {
-            logger.info("Finish inserting licensings ...");
+            logger.info("<===== Finish inserting licensings ...");
         } else {
-            logger.info("Finish inserting penalties ...");
+            logger.info("<===== Finish inserting penalties ...");
         }
     }
 
