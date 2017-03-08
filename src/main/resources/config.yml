@@ -2,7 +2,7 @@
 development:
   proceed:
     file:
-      xyChina: /Users/neo/Downloads/20170209/N2017-01-24.xls
-      newTemplate: /Users/neo/Downloads/20170209/N0206.xls
-      oldTemplate: /Users/neo/Downloads/20170209/O0206.xls
+      xyChina: /Users/neo/Downloads/20170307/N2017-02-27.xls
+      newTemplate: /Users/neo/Downloads/20170307/N0306.xls
+      oldTemplate: /Users/neo/Downloads/20170307/O0306.xls
       onlyToBase:
