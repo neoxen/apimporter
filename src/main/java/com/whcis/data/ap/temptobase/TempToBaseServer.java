@@ -74,7 +74,7 @@ public class TempToBaseServer {
             SqlRowSet rowSet = tempJdbcTemplate.queryForRowSet(query);
             while (rowSet.next()) {
                 String sql = "";
-                String insertSQL = "INSERT INTO ap_administrative_licensing_temp (`object_name`,`current_state`,`legal_rep`,`credit_code`,`org_code`,`ic_code`,`tax_code`,`identity_code`,`title`,`licensing_type`,`licensing_code`,`licensing_detail`,`effective_date`,`invalid_date`,`licensing_organ`,`local_code`,`update_time`,`remark`, `import_date`) VALUES ";
+                String insertSQL = "INSERT INTO ap_administrative_licensing_temp (`object_name`,`current_state`,`legal_rep`,`credit_code`,`org_code`,`ic_code`,`tax_code`,`identity_code`,`title`,`licensing_type`,`licensing_code`,`licensing_detail`,`effective_date`,`invalid_date`,`licensing_organ`,`local_code`,`update_time`,`remark`, `import_date`,`reserve1`) VALUES ";
 
                 try {
                     sql = "(" + withNull(rowSet.getString("XK_XDR"))
@@ -114,6 +114,8 @@ public class TempToBaseServer {
                             + withNull(rowSet.getString("BZ"))
                             + ","
                             + importDate()
+                            + ","
+                            + withNull(rowSet.getString("SJMC"))
                             + ")";
 
                     // duplication check
@@ -145,7 +147,7 @@ public class TempToBaseServer {
             SqlRowSet rowSet = tempJdbcTemplate.queryForRowSet(query);
             while (rowSet.next()) {
                 String sql = "";
-                String insertSQL = "INSERT INTO ap_administrative_penalty_temp (`object_name`,`current_state`,`legal_rep`,`credit_code`,`org_code`,`ic_code`,`tax_code`,`identity_code`,`title`,`penalty_type`,`penalty_code`,`penalty_cause`,`penalty_basis`,`penalty_result`,`effective_date`,`invalid_date`,`penalty_organ`,`local_code`,`update_time`,`remark`, `import_date`) VALUES ";
+                String insertSQL = "INSERT INTO ap_administrative_penalty_temp (`object_name`,`current_state`,`legal_rep`,`credit_code`,`org_code`,`ic_code`,`tax_code`,`identity_code`,`title`,`penalty_type`,`penalty_code`,`penalty_cause`,`penalty_basis`,`penalty_result`,`effective_date`,`invalid_date`,`penalty_organ`,`local_code`,`update_time`,`remark`, `import_date`, `reserve1`) VALUES ";
                 try {
                     sql = "(" + withNull(rowSet.getString("CF_XDR_MC"))
                             + ","
@@ -188,6 +190,8 @@ public class TempToBaseServer {
                             + withNull(rowSet.getString("BZ"))
                             + ","
                             + importDate()
+                            + ","
+                            + withNull(rowSet.getString("CF_AJMC"))
                             + ")";
 
                     // duplication check

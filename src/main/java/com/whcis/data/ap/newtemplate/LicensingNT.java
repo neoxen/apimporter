@@ -42,6 +42,8 @@ public class LicensingNT {
 
     public static String BZ;// 备注
 
+    public static String SJMC; //事项名称
+
     public static boolean isErrorData = false;
 
     public static void setX(int i, String contents) {
@@ -118,6 +120,9 @@ public class LicensingNT {
             case 17:
                 BZ = contents;
                 break;
+            case 18:
+                SJMC = contents;
+                break;
             default:
                 break;
         }
@@ -126,17 +131,16 @@ public class LicensingNT {
     public static String toValues() {
         String s = "";
         s = "(" + XK_WSH + "," + XK_XMMC + "," + XK_SPLB + "," + XK_NR + "," + XK_XDR + "," + XK_XDR_SHXYM + "," + XK_XDR_ZDM + "," + XK_XDR_GSDJ + "," + XK_XDR_SWDJ + "," + XK_XDR_SFZ + "," + XK_FR
-                + "," + XK_JDRQ + "," + XK_JZQ + "," + XK_XZJG + "," + XK_ZT + "," + DFBM + "," + SJC + "," + BZ + ")";
+                + "," + XK_JDRQ + "," + XK_JZQ + "," + XK_XZJG + "," + XK_ZT + "," + DFBM + "," + SJC + "," + BZ + "," + SJMC + ")";
         return s;
     }
 
     public static void clean() {
-        XK_XDR = XK_FR = XK_XDR_SHXYM = XK_XDR_ZDM = XK_XDR_GSDJ = XK_XDR_SWDJ = XK_XDR_SFZ = XK_XMMC = XK_SPLB = XK_WSH = XK_NR = XK_JDRQ = XK_JZQ = XK_XZJG = XK_ZT = DFBM = SJC = BZ = null;
+        XK_XDR = XK_FR = XK_XDR_SHXYM = XK_XDR_ZDM = XK_XDR_GSDJ = XK_XDR_SWDJ = XK_XDR_SFZ = XK_XMMC = XK_SPLB = XK_WSH = XK_NR = XK_JDRQ = XK_JZQ = XK_XZJG = XK_ZT = DFBM = SJC = BZ = SJMC = null;
         isErrorData = false;
     }
 
     public static boolean isEmpty() {
-        // TODO Auto-generated method stub
         return (XK_XDR == null || XK_XDR.equals("null")) && (XK_FR == null || XK_FR.equals("null"));
     }
 

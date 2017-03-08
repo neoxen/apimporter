@@ -46,6 +46,8 @@ public class PenaltyNT {
 
     public static String BZ;// 备注
 
+    public static String CF_AJMC;
+
     public static void setX(int i, String contents) {
         contents = contents.replace("'", "");
         if (contents.equals("/") || contents.equals("") || contents.equals("无")) {
@@ -128,6 +130,9 @@ public class PenaltyNT {
             case 19:
                 BZ = contents;
                 break;
+            case 20:
+                CF_AJMC = contents;
+                break;
             default:
                 break;
         }
@@ -136,12 +141,12 @@ public class PenaltyNT {
     public static String toValues() {
         String s = "";
         s = "(" + CF_WSH + "," + CF_CFMC + "," + CF_CFLB1 + "," + CF_CFLB2 + "," + CF_SY + "," + CF_YJ + "," + CF_XDR_MC + "," + CF_XDR_SHXYM + "," + CF_XDR_ZDM + "," + CF_XDR_GSDJ + ","
-                + CF_XDR_SWDJ + "," + CF_XDR_SFZ + "," + CF_FR + "," + CF_JG + "," + CF_JDRQ + "," + CF_XZJG + "," + CF_ZT + "," + DFBM + "," + SJC + "," + BZ + ")";
+                + CF_XDR_SWDJ + "," + CF_XDR_SFZ + "," + CF_FR + "," + CF_JG + "," + CF_JDRQ + "," + CF_XZJG + "," + CF_ZT + "," + DFBM + "," + SJC + "," + BZ + "," + CF_AJMC + ")";
         return s;
     }
 
     public static void clean() {
-        CF_XDR_MC = CF_FR = CF_XDR_SHXYM = CF_XDR_ZDM = CF_XDR_GSDJ = CF_XDR_SWDJ = CF_XDR_SFZ = CF_CFLB1 = CF_WSH = CF_SY = CF_YJ = CF_JG = CF_JDRQ = CF_XZJG = CF_ZT = DFBM = SJC = BZ = CF_CFMC = null;
+        CF_XDR_MC = CF_FR = CF_XDR_SHXYM = CF_XDR_ZDM = CF_XDR_GSDJ = CF_XDR_SWDJ = CF_XDR_SFZ = CF_CFLB1 = CF_WSH = CF_SY = CF_YJ = CF_JG = CF_JDRQ = CF_XZJG = CF_ZT = DFBM = SJC = BZ = CF_CFMC = CF_AJMC = null;
     }
 
     public static boolean isEmpty() {
