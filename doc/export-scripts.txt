@@ -1,0 +1,46 @@
+双公示文件处理（服务器）
+
+0. 在ecxel文件中设置时间格式：决定期、截止期、时间戳
+
+1. 复制新数据
+
+insert into ap_administrative_licensing_temp_copy
+select * from ap_administrative_licensing_temp where id > 305296
+
+
+— 处罚
+
+insert into ap_administrative_penalty_temp_copy
+select * from ap_administrative_penalty_temp where id > 15449
+
+
+2. 排序查阅数据
+
+SELECT * FROM ap_administrative_licensing_temp_copy ORDER BY length(trim(object_name));
+
+
+— 处罚
+
+SELECT * FROM ap_administrative_penalty_temp_copy ORDER BY length(trim(object_name));
+
+
+3. 删除个人双公示数据
+
+DELETE FROM ap_administrative_licensing_temp_copy WHERE length(trim(object_name)) < 12;
+
+SELECT * FROM ap_administrative_licensing_temp_copy ORDER BY length(trim(object_name));
+
+
+— 处罚
+
+DELETE FROM ap_administrative_penalty_temp_copy WHERE length(trim(object_name)) < 12;
+
+SELECT * FROM ap_administrative_penalty_temp_copy ORDER BY length(trim(object_name));
+
+
+4. Export
+
+5. 清空导出表
+
+truncate table ap_administrative_licensing_temp_copy;
+truncate table ap_administrative_penalty_temp_copy;
