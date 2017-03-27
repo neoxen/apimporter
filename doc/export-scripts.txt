@@ -44,3 +44,29 @@ SELECT * FROM ap_administrative_penalty_temp_copy ORDER BY length(trim(object_na
 
 truncate table ap_administrative_licensing_temp_copy;
 truncate table ap_administrative_penalty_temp_copy;
+
+
+-------------------------------------------------------------------------------------
+数据统计：
+select * FROM ap_administrative_penalty_temp where length(trim(object_name)) < 12
+and title like '%对从事水路运输活动的船舶未办理船舶营运证件或不随船携带船舶营运证件的行政处罚%'
+order by length(trim(object_name))
+
+
+select * FROM ap_administrative_penalty_temp where length(trim(object_name)) > 11
+and title like '%对从事水路运输活动的船舶未办理船舶营运证件或不随船携带船舶营运证件的行政处罚%'
+order by length(trim(object_name))
+
+where not length(trim(object_name)) < 12
+and not length(trim(object_name)) > 11
+
+select * FROM ap_administrative_licensing_temp where length(trim(object_name)) < 12
+and title = '台港澳就业人员就业证新办'
+and title = '台港澳就业人员就业证延期'
+order by length(trim(object_name))
+and object_name like '%***%'
+
+select * FROM ap_administrative_licensing_temp where length(trim(object_name)) > 11
+order by length(trim(object_name))
+and object_name like '%***%'
+and title like '%生育证%'
