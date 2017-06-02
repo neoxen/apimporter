@@ -8,10 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -25,9 +23,9 @@ public class TempToBaseServer {
 
     static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    static HashMap<String, Integer> name = new HashMap<String, Integer>();
+    static Hashtable<String, Integer> name = new Hashtable<String, Integer>();
 
-    static HashMap<String, Integer> abbr_name = new HashMap<String, Integer>();
+    static Hashtable<String, Integer> abbr_name = new Hashtable<String, Integer>();
 
     @Autowired
     public TempToBaseServer(JdbcTemplate tempJdbcTemplate, JdbcTemplate baseJdbcTemplate) {
@@ -51,7 +49,7 @@ public class TempToBaseServer {
     private void getName() {
 
         try {
-            String query = "select id, name, abbr_name from ap_organ";
+            String query = "select id, name, abbr_name from ap_organ WHERE pid != '1' order by id DESC ";
 
             SqlRowSet rowSet = baseJdbcTemplate.queryForRowSet(query);
 
@@ -74,7 +72,7 @@ public class TempToBaseServer {
             SqlRowSet rowSet = tempJdbcTemplate.queryForRowSet(query);
             while (rowSet.next()) {
                 String sql = "";
-                String insertSQL = "INSERT INTO ap_administrative_licensing_temp (`object_name`,`current_state`,`legal_rep`,`credit_code`,`org_code`,`ic_code`,`tax_code`,`identity_code`,`title`,`licensing_type`,`licensing_code`,`licensing_detail`,`effective_date`,`invalid_date`,`licensing_organ`,`local_code`,`update_time`,`remark`, `import_date`,`reserve1`) VALUES ";
+                String insertSQL = "INSERT INTO ap_administrative_licensing_temp (`object_name`,`current_state`,`legal_rep`,`credit_code`,`org_code`,`ic_code`,`tax_code`,`identity_code`,`title`,`licensing_type`,`licensing_code`,`licensing_detail`,`effective_date`,`invalid_date`,`licensing_organ`,`local_code`,`update_time`,`remark`, `import_date`,`reserve1`, `reserve3`) VALUES ";
 
                 try {
                     sql = "(" + withNull(rowSet.getString("XK_XDR"))
@@ -116,11 +114,13 @@ public class TempToBaseServer {
                             + importDate()
                             + ","
                             + withNull(rowSet.getString("SJMC"))
+                            + ","
+                            + withNull(rowSet.getString("XK_XZJG"))
                             + ")";
 
                     // duplication check
                     String checkQuery = "select * from ap_administrative_licensing_temp where "
-                            + toLicensingID(rowSet.getString("XK_WSH"), rowSet.getString("XK_XMMC"), rowSet.getString("XK_NR"), rowSet.getString("XK_XDR"), rowSet.getString("XK_XDR_SFZ")) + "limit 1";
+                            + toLicensingID(rowSet.getString("XK_WSH"), rowSet.getString("XK_XMMC"), rowSet.getString("XK_NR"), rowSet.getString("XK_XDR"), rowSet.getString("XK_XDR_SFZ"),rowSet.getDate("XK_JDRQ")) + "limit 1";
 
                     SqlRowSet checkRowSet = baseJdbcTemplate.queryForRowSet(checkQuery);
 
@@ -147,7 +147,7 @@ public class TempToBaseServer {
             SqlRowSet rowSet = tempJdbcTemplate.queryForRowSet(query);
             while (rowSet.next()) {
                 String sql = "";
-                String insertSQL = "INSERT INTO ap_administrative_penalty_temp (`object_name`,`current_state`,`legal_rep`,`credit_code`,`org_code`,`ic_code`,`tax_code`,`identity_code`,`title`,`penalty_type`,`penalty_code`,`penalty_cause`,`penalty_basis`,`penalty_result`,`effective_date`,`invalid_date`,`penalty_organ`,`local_code`,`update_time`,`remark`, `import_date`, `reserve1`) VALUES ";
+                String insertSQL = "INSERT INTO ap_administrative_penalty_temp (`object_name`,`current_state`,`legal_rep`,`credit_code`,`org_code`,`ic_code`,`tax_code`,`identity_code`,`title`,`penalty_type`,`penalty_code`,`penalty_cause`,`penalty_basis`,`penalty_result`,`effective_date`,`invalid_date`,`penalty_organ`,`local_code`,`update_time`,`remark`, `import_date`, `reserve1`, `reserve3`) VALUES ";
                 try {
                     sql = "(" + withNull(rowSet.getString("CF_XDR_MC"))
                             + ","
@@ -192,11 +192,13 @@ public class TempToBaseServer {
                             + importDate()
                             + ","
                             + withNull(rowSet.getString("CF_AJMC"))
+                            + ","
+                            + withNull(rowSet.getString("CF_XZJG"))
                             + ")";
 
                     // duplication check
                     String checkQuery = "select * from ap_administrative_penalty_temp where "
-                            + toPenaltyID(rowSet.getString("CF_WSH"), rowSet.getString("CF_CFMC"), rowSet.getString("CF_SY"), rowSet.getString("CF_XDR_MC"), rowSet.getString("CF_JG")) + "limit 1";
+                            + toPenaltyID(rowSet.getString("CF_WSH"), rowSet.getString("CF_CFMC"), rowSet.getString("CF_SY"), rowSet.getString("CF_XDR_MC"), rowSet.getString("CF_JG"), rowSet.getDate("CF_JDRQ")) + "limit 1";
 
                     SqlRowSet checkRowSet = baseJdbcTemplate.queryForRowSet(checkQuery);
 
@@ -221,17 +223,23 @@ public class TempToBaseServer {
         Iterator iter = name.entrySet().iterator();
         while (iter.hasNext()) {
             Map.Entry entry = (Map.Entry) iter.next();
-            if (s.contains((String) entry.getKey())) {
+            if (s.contains((String)entry.getKey())) {
                 return (int) entry.getValue() + "";
             }
         }
-        Iterator iter2 = abbr_name.entrySet().iterator();
-        while (iter2.hasNext()) {
-            Map.Entry entry = (Map.Entry) iter2.next();
-            if (s.contains((String) entry.getKey())) {
-                return (int) entry.getValue() + "";
-            }
-        }
+//        Iterator iter2 = abbr_name.entrySet().iterator();
+//        while (iter2.hasNext()) {
+//            Map.Entry entry = (Map.Entry) iter2.next();
+//            if (s.equals((String) entry.getKey())) {
+//                return (int) entry.getValue() + "";
+//            }
+//        }
+//        int l = s.lastIndexOf("'");
+//        s = s.substring(1,l);
+//        if (name.containsKey(s.trim())){
+//            return (int) name.get(s.trim()) + "";
+//        }
+        logger.error("Organ " + s + " not found.");
         return "null";
     }
 
@@ -296,7 +304,7 @@ public class TempToBaseServer {
     }
 
 
-    public static String toLicensingID(String XK_WSH, String XK_XMMC, String XK_NR, String XK_XDR, String XK_XDR_SFZ) {
+    public static String toLicensingID(String XK_WSH, String XK_XMMC, String XK_NR, String XK_XDR, String XK_XDR_SFZ, Date XK_JDRQ) {
         String s = "";
         boolean isFrist = true;
         if (XK_WSH != null) {
@@ -335,10 +343,17 @@ public class TempToBaseServer {
                 s = s + " AND identity_code='" + XK_XDR_SFZ + "'";
             }
         }
+        if (XK_JDRQ != null) {
+            if (isFrist) {
+                s = s + " effective_date='" + XK_JDRQ + "'";
+            } else {
+                s = s + " AND effective_date='" + XK_JDRQ + "'";
+            }
+        }
         return s;
     }
 
-    private static String toPenaltyID(String CF_WSH, String CF_CFMC, String CF_SY, String CF_XDR_MC, String CF_JG) {
+    private static String toPenaltyID(String CF_WSH, String CF_CFMC, String CF_SY, String CF_XDR_MC, String CF_JG, Date CF_JDRQ) {
         String s = "";
         boolean isFrist = true;
         if (CF_WSH != null) {
@@ -374,6 +389,13 @@ public class TempToBaseServer {
                 s = s + " penalty_result='" + CF_JG + "'";
             } else {
                 s = s + " AND penalty_result='" + CF_JG + "'";
+            }
+        }
+        if (CF_JDRQ != null) {
+            if (isFrist) {
+                s = s + " effective_date='" + CF_JDRQ + "'";
+            } else {
+                s = s + " AND effective_date='" + CF_JDRQ + "'";
             }
         }
         return s;

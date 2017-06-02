@@ -23,6 +23,7 @@ public class Common {
     static SimpleDateFormat sdf9 = new SimpleDateFormat("yyyy.MM");
 
     static SimpleDateFormat sdf10 = new SimpleDateFormat("yyyy年MM月dd日");
+    static SimpleDateFormat sdf11 = new SimpleDateFormat("yyyyMMdd");
 
     public static String sToDate(String s) {
         s = s.trim().replace(" ", "").replace("�", "");
@@ -119,6 +120,12 @@ public class Common {
         }
         try {
             Date date = new Date(sdf10.parse(s).getTime());
+            return "'" + sdf1.format(date) + "'";
+        } catch (Exception e) {
+
+        }
+        try {
+            Date date = new Date(sdf11.parse(s).getTime());
             return "'" + sdf1.format(date) + "'";
         } catch (Exception e) {
 
