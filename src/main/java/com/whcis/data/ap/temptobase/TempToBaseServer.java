@@ -46,6 +46,19 @@ public class TempToBaseServer {
         logger.info("========== Finish Step 5! ==========");
     }
 
+    public void checkOrgans() {
+        logger.info("========== Checking organ names before importing into Base Server ==========");
+
+        getName();
+
+        logger.info("<===== Checking licensings ... ...");
+        checkingLicensingOrgans();
+        logger.info("<===== Checking penalties ... ...");
+        checkingPenaltyOrgans();
+
+        logger.info("========== Finished Name Checking! ==========");
+    }
+
     private void getName() {
 
         try {
@@ -141,6 +154,19 @@ public class TempToBaseServer {
         }
     }
 
+    private void checkingLicensingOrgans() {
+        String query = "select * from tab_permisson_wuhan_month";
+
+        try {
+            SqlRowSet rowSet = tempJdbcTemplate.queryForRowSet(query);
+            while (rowSet.next()) {
+                toCode(withNull(rowSet.getString("XK_XZJG")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void setPenaltyData() {
         String query = "select * from tab_penaly_wuhan_month";
         try {
@@ -212,6 +238,19 @@ public class TempToBaseServer {
                     logger.error(rowSet.getInt("id") + " failed: " + sql);
                     e.printStackTrace();
                 }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void checkingPenaltyOrgans() {
+        String query = "select * from tab_penaly_wuhan_month";
+        try {
+            SqlRowSet rowSet = tempJdbcTemplate.queryForRowSet(query);
+            while (rowSet.next()) {
+                toCode(withNull(rowSet.getString("CF_XZJG")));
             }
         } catch (Exception e) {
             e.printStackTrace();

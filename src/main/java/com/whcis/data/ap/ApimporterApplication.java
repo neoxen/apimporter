@@ -43,7 +43,10 @@ public class ApimporterApplication implements CommandLineRunner {
 //		tempServer();
 
 		// 3
-		baseServer();
+		checkTempOrgans();
+
+		// 4
+//		baseServer();
 	}
 
 	public void xyChina() {
@@ -58,10 +61,16 @@ public class ApimporterApplication implements CommandLineRunner {
 		new OldTemplateToTempServer(filePathConfig, tempJdbcTemplate).stepFour();
 	}
 
+	public void checkTempOrgans(){
+		TempToBaseServer tempToBase =  new TempToBaseServer(tempJdbcTemplate, baseJdbcTemplate);
+		tempToBase.checkOrgans();
+	}
+
 	public void baseServer() {
 		TruncateTempTables.truncateBaseTables(baseJdbcTemplate);
 		ServerInfo.printMaxRecordID(baseJdbcTemplate);
-		new TempToBaseServer(tempJdbcTemplate, baseJdbcTemplate).stepFive();
+		TempToBaseServer tempToBase =  new TempToBaseServer(tempJdbcTemplate, baseJdbcTemplate);
+		tempToBase.stepFive();
 		ServerInfo.copyNewRecords(baseJdbcTemplate);
 		ServerInfo.printMaxRecordID(baseJdbcTemplate);
 	}
