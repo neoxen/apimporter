@@ -2,7 +2,7 @@
 development:
   proceed:
     file:
-      xyChina: C:/Users/DELL/Desktop/20170523/N2017-05-15.xls
-      newTemplate: C:/Users/DELL/Desktop/20170523/N20170522.xls
-      oldTemplate: C:/Users/DELL/Desktop/20170523/O20170522.xls
+      xyChina: /Users/neo/downloads/20170605/N2017-06-01.xls
+      newTemplate: /Users/neo/downloads/20170601/N20170531.xls
+      oldTemplate: /Users/neo/downloads/20170601/O20170531.xls
       onlyToBase:
