@@ -1,6 +1,7 @@
 
 package com.whcis.data.ap.temptobase;
 
+import com.whcis.data.ap.util.Record;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
@@ -27,10 +29,13 @@ public class TempToBaseServer {
 
     static Hashtable<String, Integer> abbr_name = new Hashtable<String, Integer>();
 
+    private ArrayList<Record> duplicateEntryBase;
+
     @Autowired
     public TempToBaseServer(JdbcTemplate tempJdbcTemplate, JdbcTemplate baseJdbcTemplate) {
         this.tempJdbcTemplate = tempJdbcTemplate;
         this.baseJdbcTemplate = baseJdbcTemplate;
+        this.duplicateEntryBase = new ArrayList<>();
     }
 
     public void stepFive() {
@@ -139,6 +144,8 @@ public class TempToBaseServer {
 
                     if (checkRowSet.next()) {
                         logger.warn(rowSet.getInt("id") + " Record duplicated: " + sql);
+                        Record r = new Record("licensing", rowSet.getInt("id"));
+                        duplicateEntryBase.add(r);
                         continue;
                     }
 
@@ -230,6 +237,8 @@ public class TempToBaseServer {
 
                     if (checkRowSet.next()) {
                         logger.warn(rowSet.getInt("id") + " Record duplicated: " + sql);
+                        Record r = new Record("penalty", rowSet.getInt("id"));
+                        duplicateEntryBase.add(r);
                         continue;
                     }
 
@@ -440,4 +449,7 @@ public class TempToBaseServer {
         return s;
     }
 
+    public ArrayList<Record> getDuplicateEntryBase() {
+        return duplicateEntryBase;
+    }
 }

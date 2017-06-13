@@ -17,9 +17,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.ArrayList;
+
 @SpringBootApplication
 @EnableConfigurationProperties
 public class ApimporterApplication implements CommandLineRunner {
+
 	private Report report = new Report();
 
 	@Autowired
@@ -39,6 +42,9 @@ public class ApimporterApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) {
+		// 0
+		init();
+
 		// 1
 		xyChina();
 
@@ -52,6 +58,10 @@ public class ApimporterApplication implements CommandLineRunner {
 //		baseServer();
 
 		reporting();
+	}
+
+	public void init() {
+		report.countEntries(filePathConfig);
 	}
 
 	public void xyChina() {
@@ -83,7 +93,7 @@ public class ApimporterApplication implements CommandLineRunner {
 	}
 
 	public void reporting() {
-
+		report.highlightDuplicateEntries();
 	}
 
 	public static void main(String[] args) {

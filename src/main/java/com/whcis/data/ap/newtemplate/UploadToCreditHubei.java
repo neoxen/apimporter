@@ -63,12 +63,12 @@ public class UploadToCreditHubei {
         } else {
             logger.info("<===== Start inserting penalties ...");
         }
-        Sheet penaltySheet = readWB.getSheet(type);
-        int pColumns = penaltySheet.getColumns();
-        int pRows = penaltySheet.getRows();
-        for (int i = 1; i < pRows; i++) {
-            for (int j = 0; j < pColumns; j++) {
-                Cell cell = penaltySheet.getCell(j, i);
+        Sheet sheet = readWB.getSheet(type);
+        int intColumns = sheet.getColumns();
+        int intRows = sheet.getRows();
+        for (int i = 1; i < intRows; i++) {
+            for (int j = 0; j < intColumns; j++) {
+                Cell cell = sheet.getCell(j, i);
                 if (type == 0) {
                     LicensingNT.setX(j, cell.getContents());
                 } else {
