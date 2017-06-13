@@ -2,6 +2,7 @@
 package com.whcis.data.ap.newtemplate;
 
 import com.whcis.data.ap.config.FilePathConfig;
+import com.whcis.data.ap.util.Record;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -14,6 +15,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.util.ArrayList;
 
 @Component
 @EnableConfigurationProperties({FilePathConfig.class})
@@ -25,10 +27,13 @@ public class UploadToCreditHubei {
 
     private JdbcTemplate xychinaJdbcTemplate;
 
+    private ArrayList<Record> duplicateEntryCH;
+
     @Autowired
     public UploadToCreditHubei(FilePathConfig filePathConfig, JdbcTemplate xychinaJdbcTemplate) {
         this.filePathConfig = filePathConfig;
         this.xychinaJdbcTemplate = xychinaJdbcTemplate;
+        this.duplicateEntryCH = new ArrayList<>();
     }
 
     public void stepOne() {
@@ -107,6 +112,8 @@ public class UploadToCreditHubei {
 
             if (duplicateChecking(0)) {
                 logger.warn("Line " + index + " Record duplicated: " + LicensingNT.toValues());
+                Record r = new Record("licensing", intRow);
+                duplicateEntryCH.add(r);
                 return;
             }
             xychinaJdbcTemplate.execute(
@@ -130,6 +137,8 @@ public class UploadToCreditHubei {
             // duplication check
             if (duplicateChecking(1)) {
                 logger.warn("Line " + index + " Record duplicated: " + PenaltyNT.toValues());
+                Record r = new Record("penalty", intRow);
+                duplicateEntryCH.add(r);
                 return;
             }
             xychinaJdbcTemplate.execute(
@@ -141,5 +150,9 @@ public class UploadToCreditHubei {
         } finally {
             PenaltyNT.clean();
         }
+    }
+
+    public ArrayList<Record> getDuplicateEntryCH() {
+        return duplicateEntryCH;
     }
 }

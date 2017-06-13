@@ -7,6 +7,8 @@ import com.whcis.data.ap.oldtemplate.OldTemplateToTempServer;
 import com.whcis.data.ap.temptobase.ServerInfo;
 import com.whcis.data.ap.temptobase.TempToBaseServer;
 import com.whcis.data.ap.temptobase.TruncateTempTables;
+import com.whcis.data.ap.util.Record;
+import com.whcis.data.ap.util.Report;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
@@ -18,6 +20,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 @SpringBootApplication
 @EnableConfigurationProperties
 public class ApimporterApplication implements CommandLineRunner {
+	private Report report = new Report();
 
 	@Autowired
 	private FilePathConfig filePathConfig;
@@ -37,20 +40,24 @@ public class ApimporterApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) {
 		// 1
-//		xyChina();
+		xyChina();
 
 		// 2
 //		tempServer();
 
 		// 3
-		checkTempOrgans();
+//		checkTempOrgans();
 
 		// 4
 //		baseServer();
+
+		reporting();
 	}
 
 	public void xyChina() {
-		new UploadToCreditHubei(filePathConfig, xychinaJdbcTemplate).stepOne();
+		UploadToCreditHubei uploadToCreditHubei = new UploadToCreditHubei(filePathConfig, xychinaJdbcTemplate);
+		uploadToCreditHubei.stepOne();
+		report.setDuplicateEntryCH(uploadToCreditHubei.getDuplicateEntryCH());
 	}
 
 	public void tempServer() {
@@ -73,6 +80,10 @@ public class ApimporterApplication implements CommandLineRunner {
 		tempToBase.stepFive();
 		ServerInfo.copyNewRecords(baseJdbcTemplate);
 		ServerInfo.printMaxRecordID(baseJdbcTemplate);
+	}
+
+	public void reporting() {
+
 	}
 
 	public static void main(String[] args) {
