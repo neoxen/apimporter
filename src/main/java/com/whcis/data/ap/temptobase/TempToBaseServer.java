@@ -10,10 +10,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class TempToBaseServer {
 
@@ -30,6 +27,8 @@ public class TempToBaseServer {
     static Hashtable<String, Integer> abbr_name = new Hashtable<String, Integer>();
 
     private ArrayList<Record> duplicateEntryBase;
+
+    private Set<String> organNotFound = new HashSet<>();
 
     @Autowired
     public TempToBaseServer(JdbcTemplate tempJdbcTemplate, JdbcTemplate baseJdbcTemplate) {
@@ -60,6 +59,10 @@ public class TempToBaseServer {
         checkingLicensingOrgans();
         logger.info("<===== Checking penalties ... ...");
         checkingPenaltyOrgans();
+
+        for (String organName : organNotFound) {
+            logger.error("Organ " + organName + " not found.");
+        }
 
         logger.info("========== Finished Name Checking! ==========");
     }
@@ -287,48 +290,49 @@ public class TempToBaseServer {
 //        if (name.containsKey(s.trim())){
 //            return (int) name.get(s.trim()) + "";
 //        }
-        logger.error("Organ " + s + " not found.");
+//        logger.error("Organ " + s + " not found.");
+        organNotFound.add(s);
         return "null";
     }
 
     private static String toLicensingType(String s) {
-        if (s.equals("普通")) {
+        if (s.equals("'普通'")) {
             return "1";
-        } else if (s.equals("特许")) {
+        } else if (s.equals("'特许'")) {
             return "2";
-        } else if (s.equals("认可")) {
+        } else if (s.equals("'认可'")) {
             return "3";
-        } else if (s.equals("核准")) {
+        } else if (s.equals("'核准'")) {
             return "4";
-        } else if (s.equals("登记")) {
+        } else if (s.equals("'登记'")) {
             return "5";
         }
         return "9";
     }
 
     private static String toPenaltyType(String s) {
-        if (s.equals("警告")) {
+        if (s.equals("'警告'")) {
             return "1";
-        } else if (s.equals("罚款")) {
+        } else if (s.equals("'罚款'")) {
             return "2";
-        } else if (s.equals("没收违法所得、没收非法财物")) {
+        } else if (s.equals("'没收违法所得、没收非法财物'")) {
             return "3";
-        } else if (s.equals("责令停产停业")) {
+        } else if (s.equals("'责令停产停业'")) {
             return "4";
-        } else if (s.equals("暂扣或者吊销许可证、暂扣或者吊销执照")) {
+        } else if (s.equals("'暂扣或者吊销许可证、暂扣或者吊销执照'")) {
             return "5";
-        } else if (s.equals("行政拘留")) {
+        } else if (s.equals("'行政拘留'")) {
             return "6";
         }
         return "9";
     }
 
     private static String toState(String s) {
-        if (s.equals("正常") || s.equals("null") || s.equals("0")) {
+        if (s.equals("'正常'") || s.equals("null") || s.equals("'0'")) {
             return "9";
-        } else if (s.equals("撤销") || s.equals("1")) {
+        } else if (s.equals("'撤销'") || s.equals("'1'")) {
             return "1";
-        } else if (s.equals("异议") || s.equals("3")) {
+        } else if (s.equals("'异常'") || s.equals("'2'")) {
             return "2";
         }
         return "3";

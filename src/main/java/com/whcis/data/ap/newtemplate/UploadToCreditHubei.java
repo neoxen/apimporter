@@ -52,6 +52,7 @@ public class UploadToCreditHubei {
             proceedFile(readWB, 0);
             proceedFile(readWB, 1);
 
+            readWB.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

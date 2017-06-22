@@ -44,6 +44,7 @@ public class OldTemplateToTempServer {
             Workbook readWB = Workbook.getWorkbook(new File(filePath));
             FileUtil.proceedFile(readWB,tempJdbcTemplate, 0,3);
             FileUtil.proceedFile(readWB,tempJdbcTemplate, 1,3);
+            readWB.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

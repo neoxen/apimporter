@@ -46,7 +46,7 @@ public class ApimporterApplication implements CommandLineRunner {
 		init();
 
 		// 1
-		xyChina();
+//		xyChina();
 
 		// 2
 //		tempServer();
@@ -55,7 +55,7 @@ public class ApimporterApplication implements CommandLineRunner {
 //		checkTempOrgans();
 
 		// 4
-//		baseServer();
+		baseServer();
 
 		reporting();
 	}
@@ -88,12 +88,13 @@ public class ApimporterApplication implements CommandLineRunner {
 		ServerInfo.printMaxRecordID(baseJdbcTemplate);
 		TempToBaseServer tempToBase =  new TempToBaseServer(tempJdbcTemplate, baseJdbcTemplate);
 		tempToBase.stepFive();
+		report.setDuplicateEntryBase(tempToBase.getDuplicateEntryBase());
 		ServerInfo.copyNewRecords(baseJdbcTemplate);
 		ServerInfo.printMaxRecordID(baseJdbcTemplate);
 	}
 
 	public void reporting() {
-		report.highlightDuplicateEntries();
+		report.highlightDuplicateEntries(filePathConfig);
 	}
 
 	public static void main(String[] args) {

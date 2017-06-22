@@ -54,6 +54,7 @@ public class NewTemplateUploadToTempServer {
             Workbook readWB = Workbook.getWorkbook(new File(filePath));
             FileUtil.proceedFile(readWB,tempJdbcTemplate, 0,1);
             FileUtil.proceedFile(readWB,tempJdbcTemplate, 1,1);
+            readWB.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
