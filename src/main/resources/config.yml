@@ -2,7 +2,10 @@
 development:
   proceed:
     file:
-      xyChina: /Users/neo/downloads/20170605/N2017-06-01.xls
-      newTemplate: /Users/neo/downloads/20170601/N20170531.xls
-      oldTemplate: /Users/neo/downloads/20170601/O20170531.xls
+      #  xyChina: /Users/neo/downloads/20170605/N2017-06-01.xls
+      xyChina: C:\Users\DELL\Desktop\20170619/N2017-06-12.xls
+      #  newTemplate: /Users/neo/downloads/20170601/N20170531.xls
+      newTemplate: C:\Users\DELL\Desktop\20170619/N20170619.xls
+      #  oldTemplate: /Users/neo/downloads/20170601/O20170531.xls
+      oldTemplate: C:\Users\DELL\Desktop\20170619/O20170619.xls
       onlyToBase:
