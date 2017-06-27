@@ -53,10 +53,11 @@ public class ApimporterApplication implements CommandLineRunner {
 //		tempServerWhcic();
 
 		// 3
-//		checkTempOrgans();
+		checkTempOrgans();
+		checkDateParsing();
 
 		// 4
-		baseServer();
+//		baseServer();
 
 		reporting();
 	}
@@ -88,6 +89,11 @@ public class ApimporterApplication implements CommandLineRunner {
 	public void checkTempOrgans(){
 		TempToBaseServer tempToBase =  new TempToBaseServer(tempJdbcTemplate, baseJdbcTemplate);
 		tempToBase.checkOrgans();
+	}
+
+	public void checkDateParsing(){
+		TempToBaseServer tempToBase =  new TempToBaseServer(tempJdbcTemplate, baseJdbcTemplate);
+		tempToBase.checkDate();
 	}
 
 	public void baseServer() {

@@ -29,6 +29,7 @@ public class TempToBaseServer {
     private ArrayList<Record> duplicateEntryBase;
 
     private Set<String> organNotFound = new HashSet<>();
+    private Map<Integer, Date> dateNotProper = new HashMap<Integer, Date>();
 
     @Autowired
     public TempToBaseServer(JdbcTemplate tempJdbcTemplate, JdbcTemplate baseJdbcTemplate) {
@@ -62,6 +63,26 @@ public class TempToBaseServer {
 
         for (String organName : organNotFound) {
             logger.error("Organ " + organName + " not found.");
+        }
+
+        logger.info("========== Finished Name Checking! ==========");
+    }
+
+    public void checkDate() {
+        logger.info("========== Checking Date Parsing before importing into Base Server ==========");
+
+        logger.info("<===== Checking licensings dates ... ...");
+        checkingLicensingDates();
+        for (Map.Entry<Integer, Date> entry : dateNotProper.entrySet()){
+            logger.error("Date parsing not proper: record #" + entry.getKey() + " with date " + entry.getValue());
+        }
+        logger.info("<===== Checking penalties dates ... ...");
+
+        dateNotProper.clear();
+        checkingPenaltyDates();
+
+        for (Map.Entry<Integer, Date> entry : dateNotProper.entrySet()){
+            logger.error("Date parsing not proper: record #" + entry.getKey() + " with date " + entry.getValue());
         }
 
         logger.info("========== Finished Name Checking! ==========");
@@ -177,6 +198,24 @@ public class TempToBaseServer {
         }
     }
 
+    private void checkingLicensingDates() {
+        String jdrqQuery = "select id, xk_jdrq from tab_permisson_wuhan_month WHERE xk_jdrq > now()";
+        String sjcQuery = "select id, sjc from tab_permisson_wuhan_month WHERE sjc > now()";
+
+        try {
+            SqlRowSet rowSet = tempJdbcTemplate.queryForRowSet(jdrqQuery);
+            while (rowSet.next()) {
+                dateNotProper.put(rowSet.getInt("id"), rowSet.getDate("xk_jdrq"));
+            }
+            rowSet = tempJdbcTemplate.queryForRowSet(sjcQuery);
+            while (rowSet.next()) {
+                dateNotProper.put(rowSet.getInt("id"), rowSet.getDate("sjc"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void setPenaltyData() {
         String query = "select * from tab_penaly_wuhan_month";
         try {
@@ -268,6 +307,24 @@ public class TempToBaseServer {
             e.printStackTrace();
         }
 
+    }
+
+    private void checkingPenaltyDates() {
+        String jdrqQuery = "select id, cf_jdrq from tab_penaly_wuhan_month WHERE cf_jdrq > now()";
+        String sjcQuery = "select id, sjc from tab_penaly_wuhan_month WHERE sjc > now()";
+
+        try {
+            SqlRowSet rowSet = tempJdbcTemplate.queryForRowSet(jdrqQuery);
+            while (rowSet.next()) {
+                dateNotProper.put(rowSet.getInt("id"), rowSet.getDate("cf_jdrq"));
+            }
+            rowSet = tempJdbcTemplate.queryForRowSet(sjcQuery);
+            while (rowSet.next()) {
+                dateNotProper.put(rowSet.getInt("id"), rowSet.getDate("sjc"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private String toCode(String s) {
