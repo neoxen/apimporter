@@ -58,7 +58,11 @@ public class TempToBaseServer {
 
         logger.info("<===== Checking licensings ... ...");
         checkingLicensingOrgans();
+        for (String organName : organNotFound) {
+            logger.error("Organ " + organName + " not found.");
+        }
         logger.info("<===== Checking penalties ... ...");
+        organNotFound.clear();
         checkingPenaltyOrgans();
 
         for (String organName : organNotFound) {
