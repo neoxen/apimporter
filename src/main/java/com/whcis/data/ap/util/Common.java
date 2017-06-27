@@ -10,15 +10,15 @@ import java.util.Date;
 public class Common {
     private static final Logger logger = LoggerFactory.getLogger(Common.class);
 
-    static SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-    static SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-ddHH:mm");
-    static SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
-    static SimpleDateFormat sdf4 = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss.S");
+    static SimpleDateFormat sdf4 = new SimpleDateFormat("yyyy-MM-dd");
+    static SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    static SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    static SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
 
-    static SimpleDateFormat sdf5 = new SimpleDateFormat("yyyy.MM.dd");
-    static SimpleDateFormat sdf6 = new SimpleDateFormat("yyyy.MM.ddHH:mm");
-    static SimpleDateFormat sdf7 = new SimpleDateFormat("yyyy.MM.ddHH:mm:ss");
-    static SimpleDateFormat sdf8 = new SimpleDateFormat("yyyy.MM.ddHH:mm:ss.S");
+    static SimpleDateFormat sdf8 = new SimpleDateFormat("yyyy.MM.dd");
+    static SimpleDateFormat sdf7 = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+    static SimpleDateFormat sdf6 = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+    static SimpleDateFormat sdf5 = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss.S");
 
     static SimpleDateFormat sdf9 = new SimpleDateFormat("yyyy.MM");
 
@@ -26,7 +26,7 @@ public class Common {
     static SimpleDateFormat sdf11 = new SimpleDateFormat("yyyyMMdd");
 
     public static String sToDate(String s) {
-        s = s.trim().replace(" ", "").replace("�", "");
+        s = s.trim().replace("�", "");
 
         s = s.replace(",", "-").replace("，", "-").replace("：", ":");
 
