@@ -7,7 +7,6 @@ import com.whcis.data.ap.oldtemplate.OldTemplateToTempServer;
 import com.whcis.data.ap.temptobase.ServerInfo;
 import com.whcis.data.ap.temptobase.TempToBaseServer;
 import com.whcis.data.ap.temptobase.TruncateTempTables;
-import com.whcis.data.ap.util.Record;
 import com.whcis.data.ap.util.Report;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,8 +15,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import java.util.ArrayList;
 
 @SpringBootApplication
 @EnableConfigurationProperties
@@ -49,15 +46,15 @@ public class ApimporterApplication implements CommandLineRunner {
 //		xyChina();
 
 		// 2
-//		tempServer();
+		tempServer();
 //		tempServerWhcic();
 
 		// 3
-		checkTempOrgans();
-		checkDateParsing();
+//		checkTempOrgans();
+//		checkDateParsing();
 
 		// 4
-//		baseServer();
+		baseServer();
 
 		reporting();
 	}

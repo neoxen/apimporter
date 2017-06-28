@@ -1,18 +1,17 @@
 package com.whcis.data.ap.util;
 
-import com.sun.xml.internal.ws.api.pipe.FiberContextSwitchInterceptor;
 import com.whcis.data.ap.config.FilePathConfig;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.format.Border;
 import jxl.format.BorderLineStyle;
 import jxl.format.Colour;
+import jxl.format.UnderlineStyle;
 import jxl.write.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -81,7 +80,7 @@ public class Report {
                 int intColumnLCH = sheetLCH.getColumns();
                 int intColumnPCH = sheetPCH.getColumns();
 
-                WritableFont wf = new WritableFont(WritableFont.ARIAL,10,WritableFont.BOLD);
+                WritableFont wf = new WritableFont(WritableFont.ARIAL,10,WritableFont.BOLD,false, UnderlineStyle.NO_UNDERLINE, Colour.RED);
                 WritableCellFormat wcf = new WritableCellFormat(wf);
                 wcf.setBackground(Colour.LIGHT_GREEN);
                 wcf.setBorder(Border.ALL, BorderLineStyle.DOTTED, Colour.BROWN);
@@ -154,35 +153,37 @@ public class Report {
                 int intColumnLOT = sheetLOT.getColumns();
                 int intColumnPOT = sheetPOT.getColumns();
 
-                WritableFont wf = new WritableFont(WritableFont.ARIAL,10,WritableFont.BOLD);
-                WritableCellFormat greencf = new WritableCellFormat(wf);
-                greencf.setBackground(Colour.LIGHT_GREEN);
-                greencf.setBorder(Border.ALL, BorderLineStyle.THIN, Colour.BROWN);
-
-                WritableCellFormat redcf = new WritableCellFormat(wf);
-                redcf.setBackground(Colour.RED);
-                redcf.setBorder(Border.ALL, BorderLineStyle.THIN, Colour.BROWN);
-
-                WritableCellFormat bluecf = new WritableCellFormat(wf);
-                bluecf.setBackground(Colour.AQUA);
-                bluecf.setBorder(Border.ALL, BorderLineStyle.THIN, Colour.BROWN);
-
                 for (Record record : duplicateEntryBase) {
                     if (record.getType().equals("licensing")){
                         countL++;
 
                         if (record.getIndex() <= countLicensingCH) {
+                            WritableFont wf = new WritableFont(WritableFont.ARIAL,10,WritableFont.BOLD,false, UnderlineStyle.NO_UNDERLINE, Colour.RED);
+                            WritableCellFormat bluecf = new WritableCellFormat(wf);
+                            bluecf.setBackground(Colour.AQUA);
+                            bluecf.setBorder(Border.ALL, BorderLineStyle.THIN, Colour.BROWN);
                             for (int i = 0; i < intColumnLCH; i++) {
                                 sheetLCH.getWritableCell(i, record.getIndex()).setCellFormat(bluecf);
                             }
                         }
                         else if (countLicensingCH < record.getIndex() && record.getIndex() <= (countLicensingCH+countLicensingNew)) {
+                            WritableFont wfNew = new WritableFont(WritableFont.ARIAL,10,WritableFont.BOLD,false, UnderlineStyle.NO_UNDERLINE, Colour.RED);
+                            WritableCellFormat bluecfNew = new WritableCellFormat(wfNew);
+                            bluecfNew.setBackground(Colour.AQUA);
+                            bluecfNew.setBorder(Border.ALL, BorderLineStyle.THIN, Colour.BROWN);
+                            int j = record.getIndex() - countLicensingCH;
                             for (int i = 0; i < intColumnLNT; i++) {
-                                sheetLNT.getWritableCell(i, record.getIndex()-countLicensingCH).setCellFormat(bluecf);
+
+                                sheetLNT.getWritableCell(i, j).setCellFormat(bluecfNew);
                             }
                         } else {
+                            WritableFont wfOld = new WritableFont(WritableFont.ARIAL,10,WritableFont.BOLD,false, UnderlineStyle.NO_UNDERLINE, Colour.RED);
+                            WritableCellFormat bluecfOld = new WritableCellFormat(wfOld);
+                            bluecfOld.setBackground(Colour.AQUA);
+                            bluecfOld.setBorder(Border.ALL, BorderLineStyle.THIN, Colour.BROWN);
+                            int j = record.getIndex() - countLicensingCH - countLicensingNew + 2;
                             for (int i = 0; i < intColumnLOT; i++) {
-                                sheetLOT.getWritableCell(i, record.getIndex()-countLicensingCH-countLicensingNew+2).setCellFormat(bluecf);
+                                sheetLOT.getWritableCell(i, j).setCellFormat(bluecfOld);
                             }
                         }
                     }
@@ -190,17 +191,31 @@ public class Report {
                         countP++;
 
                         if (record.getIndex() <= countPenaltyCH) {
+                            WritableFont wf = new WritableFont(WritableFont.ARIAL,10,WritableFont.BOLD,false, UnderlineStyle.NO_UNDERLINE, Colour.RED);
+                            WritableCellFormat bluecf = new WritableCellFormat(wf);
+                            bluecf.setBackground(Colour.AQUA);
+                            bluecf.setBorder(Border.ALL, BorderLineStyle.THIN, Colour.BROWN);
                             for (int i = 0; i < intColumnPCH; i++) {
                                 sheetPCH.getWritableCell(i, record.getIndex()).setCellFormat(bluecf);
                             }
                         }
                         else if (countPenaltyCH < record.getIndex() && record.getIndex() <= (countPenaltyCH+countPenaltyNew)) {
+                            WritableFont wfNew = new WritableFont(WritableFont.ARIAL,10,WritableFont.BOLD,false, UnderlineStyle.NO_UNDERLINE, Colour.RED);
+                            WritableCellFormat bluecfNew = new WritableCellFormat(wfNew);
+                            bluecfNew.setBackground(Colour.AQUA);
+                            bluecfNew.setBorder(Border.ALL, BorderLineStyle.THIN, Colour.BROWN);
+                            int j = record.getIndex() - countPenaltyCH;
                             for (int i = 0; i < intColumnPNT; i++) {
-                                sheetPNT.getWritableCell(i, record.getIndex()-countPenaltyCH).setCellFormat(bluecf);
+                                sheetPNT.getWritableCell(i, j).setCellFormat(bluecfNew);
                             }
                         } else {
+                            WritableFont wfOld = new WritableFont(WritableFont.ARIAL,10,WritableFont.BOLD,false, UnderlineStyle.NO_UNDERLINE, Colour.RED);
+                            WritableCellFormat bluecfOld = new WritableCellFormat(wfOld);
+                            bluecfOld.setBackground(Colour.AQUA);
+                            bluecfOld.setBorder(Border.ALL, BorderLineStyle.THIN, Colour.BROWN);
+                            int j = record.getIndex() - countPenaltyCH - countPenaltyNew + 2;
                             for (int i = 0; i < intColumnPOT; i++) {
-                                sheetPOT.getWritableCell(i, record.getIndex()-countPenaltyCH-countPenaltyNew+2).setCellFormat(bluecf);
+                                sheetPOT.getWritableCell(i, j).setCellFormat(bluecfOld);
                             }
                         }
                     }
