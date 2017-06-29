@@ -2,13 +2,14 @@ package com.whcis.data.ap.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 /**
  * Created by neo on 2016/12/28.
  */
 @Configuration
-@ConfigurationProperties(locations = "classpath:config.yml",
-        ignoreUnknownFields = false, prefix = "development.proceed.file")
+@PropertySource("classpath:filepath.properties")
+@ConfigurationProperties(prefix = "development.proceed.file")
 public class FilePathConfig {
     private String xyChina;
     private String newTemplate;
