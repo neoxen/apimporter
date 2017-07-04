@@ -89,7 +89,7 @@ public class TempToBaseServer {
             logger.error("Date parsing not proper: record #" + entry.getKey() + " with date " + entry.getValue());
         }
 
-        logger.info("========== Finished Name Checking! ==========");
+        logger.info("========== Finished Date Parsing Checking! ==========");
     }
 
     private void getName() {
