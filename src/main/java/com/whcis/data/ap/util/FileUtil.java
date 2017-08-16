@@ -18,7 +18,7 @@ public class FileUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
 
-    public static void proceedFile(Workbook readWB, JdbcTemplate jdbcTemplate, int type, int offset) {
+    public static void proceedFile(Workbook readWB, JdbcTemplate jdbcTemplate, int type, int offset, int source) {
         if (type == 0) {
             logger.info("<===== Start inserting licensings ...");
         } else {
@@ -47,15 +47,15 @@ public class FileUtil {
 
             if (type == 0) {
                 if (offset == 1) {
-                    insertLicensingNT(i, jdbcTemplate);
+                    insertLicensingNT(i, jdbcTemplate, source);
                 } else {
-                    insertLicensingOT(i, jdbcTemplate);
+                    insertLicensingOT(i, jdbcTemplate, source);
                 }
             } else {
                 if (offset == 1) {
-                    insertPenaltyNT(i, jdbcTemplate);
+                    insertPenaltyNT(i, jdbcTemplate, source);
                 } else {
-                    insertPenaltyOT(i, jdbcTemplate);
+                    insertPenaltyOT(i, jdbcTemplate, source);
                 }
             }
         }
@@ -66,64 +66,64 @@ public class FileUtil {
         }
     }
 
-    private static void insertLicensingNT(int intRow, JdbcTemplate jdbcTemplate) {
+    private static void insertLicensingNT(int intRow, JdbcTemplate jdbcTemplate, int source) {
         try {
             if (LicensingNT.XK_WSH.contains("表格说明") || LicensingNT.isEmpty()) {
                 return;
             }
             jdbcTemplate.execute(
-                    "INSERT INTO tab_permisson_wuhan_month (`XK_WSH`,`XK_XMMC`,`XK_SPLB`,`XK_NR`,`XK_XDR`,`XK_XDR_SHXYM`,`XK_XDR_ZDM`,`XK_XDR_GSDJ`,`XK_XDR_SWDJ`,`XK_XDR_SFZ`,`XK_FR`,`XK_JDRQ`,`XK_JZQ`,`XK_XZJG`,`XK_ZT`,`DFBM`,`SJC`,`BZ`,`SJMC`) VALUES "
-                            + LicensingNT.toValues());
+                    "INSERT INTO tab_permisson_wuhan_month (`XK_WSH`,`XK_XMMC`,`XK_SPLB`,`XK_NR`,`XK_XDR`,`XK_XDR_SHXYM`,`XK_XDR_ZDM`,`XK_XDR_GSDJ`,`XK_XDR_SWDJ`,`XK_XDR_SFZ`,`XK_FR`,`XK_JDRQ`,`XK_JZQ`,`XK_XZJG`,`XK_ZT`,`DFBM`,`SJC`,`BZ`,`SJMC`, `SOURCE`) VALUES "
+                            + LicensingNT.toValues(source));
 
         } catch (Exception e) {
-            logger.error(intRow + " Licensing insert failed: " + LicensingNT.toValues());
+            logger.error(intRow + " Licensing insert failed: " + LicensingNT.toValues(source));
             e.printStackTrace();
         } finally {
             LicensingNT.clean();
         }
     }
 
-    private static void insertPenaltyNT(int intRow, JdbcTemplate jdbcTemplate) {
+    private static void insertPenaltyNT(int intRow, JdbcTemplate jdbcTemplate, int source) {
         try {
             if (PenaltyNT.CF_WSH.contains("表格说明") || PenaltyNT.isEmpty()) {
                 return;
             }
             jdbcTemplate.execute(
-                    "INSERT INTO tab_penaly_wuhan_month (`CF_WSH`,`CF_CFMC`,`CF_CFLB1`,`CF_CFLB2`,`CF_SY`,`CF_YJ`,`CF_XDR_MC`,`CF_XDR_SHXYM`,`CF_XDR_ZDM`,`CF_XDR_GSDJ`,`CF_XDR_SWDJ`,`CF_XDR_SFZ`,`CF_FR`,`CF_JG`,`CF_JDRQ`,`CF_XZJG`,`CF_ZT`,`DFBM`,`SJC`,`BZ`, `CF_AJMC`) VALUES "
-                            + PenaltyNT.toValues());
+                    "INSERT INTO tab_penaly_wuhan_month (`CF_WSH`,`CF_CFMC`,`CF_CFLB1`,`CF_CFLB2`,`CF_SY`,`CF_YJ`,`CF_XDR_MC`,`CF_XDR_SHXYM`,`CF_XDR_ZDM`,`CF_XDR_GSDJ`,`CF_XDR_SWDJ`,`CF_XDR_SFZ`,`CF_FR`,`CF_JG`,`CF_JDRQ`,`CF_XZJG`,`CF_ZT`,`DFBM`,`SJC`,`BZ`, `CF_AJMC`, `GSQX`, `SOURCE`) VALUES "
+                            + PenaltyNT.toValues(source));
         } catch (Exception e) {
             e.printStackTrace();
-            logger.error(intRow + " Penalty insert failed: " + PenaltyNT.toValues());
+            logger.error(intRow + " Penalty insert failed: " + PenaltyNT.toValues(source));
         } finally {
             PenaltyNT.clean();
         }
     }
 
-    private static void insertLicensingOT(int intRow, JdbcTemplate jdbcTemplate) {
+    private static void insertLicensingOT(int intRow, JdbcTemplate jdbcTemplate, int source) {
         try {
             if (LicensingOT.XK_XDR.contains("表格说明") || LicensingOT.isEmpty()) {
                 return;
             }
             jdbcTemplate.execute(
-                            "INSERT INTO tab_permisson_wuhan_month (`XK_XDR`,`XK_FR`,`XK_XDR_SHXYM`,`XK_XDR_ZDM`,`XK_XDR_GSDJ`,`XK_XDR_SWDJ`,`XK_XDR_SFZ`,`XK_XMMC`,`XK_SPLB`,`XK_WSH`,`XK_NR`,`XK_JDRQ`,`XK_JZQ`,`XK_XZJG`,`XK_ZT`,`DFBM`,`SJC`,`BZ`,`QTXX`,`SJMC`) VALUES "
-                                    + LicensingOT.toValues());
+                            "INSERT INTO tab_permisson_wuhan_month (`XK_XDR`,`XK_FR`,`XK_XDR_SHXYM`,`XK_XDR_ZDM`,`XK_XDR_GSDJ`,`XK_XDR_SWDJ`,`XK_XDR_SFZ`,`XK_XMMC`,`XK_SPLB`,`XK_WSH`,`XK_NR`,`XK_JDRQ`,`XK_JZQ`,`XK_XZJG`,`XK_ZT`,`DFBM`,`SJC`,`BZ`,`QTXX`,`SJMC`, `SOURCE`) VALUES "
+                                    + LicensingOT.toValues(source));
         } catch (Exception e) {
-            logger.error(intRow + " insert failed: " + LicensingOT.toValues());
+            logger.error(intRow + " insert failed: " + LicensingOT.toValues(source));
         } finally {
             LicensingOT.clean();
         }
     }
 
-    private static void insertPenaltyOT(int intRow, JdbcTemplate jdbcTemplate) {
+    private static void insertPenaltyOT(int intRow, JdbcTemplate jdbcTemplate, int source) {
         try {
             if (PenaltyOT.CF_XDR_MC.contains("表格说明") || PenaltyOT.isEmpty()) {
                 return;
             }
             jdbcTemplate.execute(
-                            "INSERT INTO tab_penaly_wuhan_month (`CF_XDR_MC`,`CF_FR`,`CF_XDR_SHXYM`,`CF_XDR_ZDM`,`CF_XDR_GSDJ`,`CF_XDR_SWDJ`,`CF_XDR_SFZ`,`CF_CFMC`,`CF_CFLB1`,`CF_WSH`,`CF_SY`,`CF_YJ`,`CF_JG`,`CF_JDRQ`,`CF_JZRQ`,`CF_XZJG`,`CF_ZT`,`DFBM`,`SJC`,`BZ`,`QT`,`CF_AJMC`) VALUES "
-                                    + PenaltyOT.toValues());
+                            "INSERT INTO tab_penaly_wuhan_month (`CF_XDR_MC`,`CF_FR`,`CF_XDR_SHXYM`,`CF_XDR_ZDM`,`CF_XDR_GSDJ`,`CF_XDR_SWDJ`,`CF_XDR_SFZ`,`CF_CFMC`,`CF_CFLB1`,`CF_WSH`,`CF_SY`,`CF_YJ`,`CF_JG`,`CF_JDRQ`,`CF_JZRQ`,`CF_XZJG`,`CF_ZT`,`DFBM`,`SJC`,`BZ`,`QT`,`CF_AJMC`,`GSQX`, `SOURCE`) VALUES "
+                                    + PenaltyOT.toValues(source));
         } catch (Exception e) {
-            logger.error(intRow + " insert failed: " + PenaltyOT.toValues());
+            logger.error(intRow + " insert failed: " + PenaltyOT.toValues(source));
         } finally {
             PenaltyOT.clean();
         }

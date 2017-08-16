@@ -34,7 +34,7 @@ public class NewTemplateUploadToTempServer {
         logger.info("========== Step 2: Upload XyChina To The Temporary Server ==========");
 
         String filePath = filePathConfig.getXyChina();
-        writeToDatabase(filePath);
+        writeToDatabase(filePath,1);
 
         logger.info("========== Finish Step 2! ==========");
     }
@@ -43,17 +43,26 @@ public class NewTemplateUploadToTempServer {
         logger.info("========== Step 3: Upload New Template To The Temporary Server ==========");
 
         String filePath = filePathConfig.getNewTemplate();
-        writeToDatabase(filePath);
+        writeToDatabase(filePath,3);
 
         logger.info("========== Finish Step 3! ==========");
     }
 
+    public void stepWhcic() {
+        logger.info("========== Step Whcic: Upload Whcic Data To The Temporary Server ==========");
 
-    private void writeToDatabase(String filePath) {
+        String filePath = filePathConfig.getXyChina();
+        writeToDatabase(filePath,2);
+
+        logger.info("========== Finish Step Whcic! ==========");
+    }
+
+
+    private void writeToDatabase(String filePath, int source) {
         try {
             Workbook readWB = Workbook.getWorkbook(new File(filePath));
-            FileUtil.proceedFile(readWB,tempJdbcTemplate, 0,1);
-            FileUtil.proceedFile(readWB,tempJdbcTemplate, 1,1);
+            FileUtil.proceedFile(readWB,tempJdbcTemplate, 0,1,source);
+            FileUtil.proceedFile(readWB,tempJdbcTemplate, 1,1,source);
             readWB.close();
         } catch (Exception e) {
             e.printStackTrace();

@@ -33,17 +33,17 @@ public class OldTemplateToTempServer {
         logger.info("========== Step 4: Upload Old Template To The Temporary Server ==========");
 
         String filePath = filePathConfig.getOldTemplate();
-        writeToDatabase(filePath);
+        writeToDatabase(filePath, 3);
 
         logger.info("========== Finish Step 4! ==========");
     }
 
 
-    private void writeToDatabase(String filePath) {
+    private void writeToDatabase(String filePath, int source) {
         try {
             Workbook readWB = Workbook.getWorkbook(new File(filePath));
-            FileUtil.proceedFile(readWB,tempJdbcTemplate, 0,3);
-            FileUtil.proceedFile(readWB,tempJdbcTemplate, 1,3);
+            FileUtil.proceedFile(readWB,tempJdbcTemplate, 0,3, source);
+            FileUtil.proceedFile(readWB,tempJdbcTemplate, 1,3, source);
             readWB.close();
         } catch (Exception e) {
             e.printStackTrace();

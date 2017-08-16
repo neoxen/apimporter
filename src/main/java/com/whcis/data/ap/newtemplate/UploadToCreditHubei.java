@@ -112,17 +112,17 @@ public class UploadToCreditHubei {
             // duplication check
 
             if (duplicateChecking(0)) {
-                logger.warn("Line " + index + " Record duplicated: " + LicensingNT.toValues());
+                logger.warn("Line " + index + " Record duplicated: " + LicensingNT.toValues(1));
                 Record r = new Record("licensing", intRow);
                 duplicateEntryCH.add(r);
                 return;
             }
             xychinaJdbcTemplate.execute(
-                            "INSERT INTO licensing_tem (`XK_WSH`,`XK_XMMC`,`XK_SPLB`,`XK_NR`,`XK_XDR`,`XK_XDR_SHXYM`,`XK_XDR_ZDM`,`XK_XDR_GSDJ`,`XK_XDR_SWDJ`,`XK_XDR_SFZ`,`XK_FR`,`XK_JDRQ`,`XK_JZQ`,`XK_XZJG`,`XK_ZT`,`DFBM`,`SJC`,`BZ`, `SJMC`) VALUES "
-                                    + LicensingNT.toValues());
+                            "INSERT INTO licensing_tem (`XK_WSH`,`XK_XMMC`,`XK_SPLB`,`XK_NR`,`XK_XDR`,`XK_XDR_SHXYM`,`XK_XDR_ZDM`,`XK_XDR_GSDJ`,`XK_XDR_SWDJ`,`XK_XDR_SFZ`,`XK_FR`,`XK_JDRQ`,`XK_JZQ`,`XK_XZJG`,`XK_ZT`,`DFBM`,`SJC`,`BZ`, `SJMC`, `SOURCE`) VALUES "
+                                    + LicensingNT.toValues(1));
 
         } catch (Exception e) {
-            logger.error("Line " + index + " Insert failed: " + LicensingNT.toValues());
+            logger.error("Line " + index + " Insert failed: " + LicensingNT.toValues(1));
             e.printStackTrace();
         } finally {
             LicensingNT.clean();
@@ -137,17 +137,17 @@ public class UploadToCreditHubei {
             }
             // duplication check
             if (duplicateChecking(1)) {
-                logger.warn("Line " + index + " Record duplicated: " + PenaltyNT.toValues());
+                logger.warn("Line " + index + " Record duplicated: " + PenaltyNT.toValues(1));
                 Record r = new Record("penalty", intRow);
                 duplicateEntryCH.add(r);
                 return;
             }
             xychinaJdbcTemplate.execute(
-                            "INSERT INTO penaly_tem (`CF_WSH`,`CF_CFMC`,`CF_CFLB1`,`CF_CFLB2`,`CF_SY`,`CF_YJ`,`CF_XDR_MC`,`CF_XDR_SHXYM`,`CF_XDR_ZDM`,`CF_XDR_GSDJ`,`CF_XDR_SWDJ`,`CF_XDR_SFZ`,`CF_FR`,`CF_JG`,`CF_JDRQ`,`CF_XZJG`,`CF_ZT`,`DFBM`,`SJC`,`BZ`,`CF_AJMC`) VALUES "
-                                    + PenaltyNT.toValues());
+                            "INSERT INTO penaly_tem (`CF_WSH`,`CF_CFMC`,`CF_CFLB1`,`CF_CFLB2`,`CF_SY`,`CF_YJ`,`CF_XDR_MC`,`CF_XDR_SHXYM`,`CF_XDR_ZDM`,`CF_XDR_GSDJ`,`CF_XDR_SWDJ`,`CF_XDR_SFZ`,`CF_FR`,`CF_JG`,`CF_JDRQ`,`CF_XZJG`,`CF_ZT`,`DFBM`,`SJC`,`BZ`,`CF_AJMC`, `GSQX`, `SOURCE`) VALUES "
+                                    + PenaltyNT.toValues(1));
         } catch (Exception e) {
             e.printStackTrace();
-            logger.error("Line " + index + " Insert failed: " + PenaltyNT.toValues());
+            logger.error("Line " + index + " Insert failed: " + PenaltyNT.toValues(1));
         } finally {
             PenaltyNT.clean();
         }
