@@ -46,6 +46,8 @@ public class LicensingOT {
 
     public static String SJMC;// 事件名称
 
+    public static String SOURCE; // 来源：1信用湖北  2汇集系统 3邮件报送 4其他
+
     public static void setX(int i, String contents) {
         contents = contents.replace("'", "");
         if (contents.equals("/") || contents.equals("") || contents.equals("无")) {
@@ -137,10 +139,10 @@ public class LicensingOT {
         }
     }
 
-    public static String toValues() {
+    public static String toValues(int source) {
         String s = "";
         s = "(" + XK_XDR + "," + XK_FR + "," + XK_XDR_SHXYM + "," + XK_XDR_ZDM + "," + XK_XDR_GSDJ + "," + XK_XDR_SWDJ + "," + XK_XDR_SFZ + "," + XK_XMMC + "," + XK_SPLB + "," + XK_WSH + "," + XK_NR
-                + "," + XK_JDRQ + "," + XK_JZQ + "," + XK_XZJG + "," + XK_ZT + "," + DFBM + "," + SJC + "," + BZ + "," + QTXX + "," + SJMC + ")";
+                + "," + XK_JDRQ + "," + XK_JZQ + "," + XK_XZJG + "," + XK_ZT + "," + DFBM + "," + SJC + "," + BZ + "," + QTXX + "," + SJMC + "," + source + ")";
         return s;
     }
 

@@ -48,6 +48,10 @@ public class PenaltyNT {
 
     public static String CF_AJMC;
 
+    public static String GSQX; // 公示期限
+
+    public static String SOURCE; // 来源：1信用湖北  2汇集系统 3邮件报送 4其他
+
     public static void setX(int i, String contents) {
         contents = contents.replace("'", "");
         if (contents.equals("/") || contents.equals("") || contents.equals("无")) {
@@ -133,20 +137,23 @@ public class PenaltyNT {
             case 20:
                 CF_AJMC = contents;
                 break;
+            case 21:
+                GSQX = contents;
+                break;
             default:
                 break;
         }
     }
 
-    public static String toValues() {
+    public static String toValues(int source) {
         String s = "";
         s = "(" + CF_WSH + "," + CF_CFMC + "," + CF_CFLB1 + "," + CF_CFLB2 + "," + CF_SY + "," + CF_YJ + "," + CF_XDR_MC + "," + CF_XDR_SHXYM + "," + CF_XDR_ZDM + "," + CF_XDR_GSDJ + ","
-                + CF_XDR_SWDJ + "," + CF_XDR_SFZ + "," + CF_FR + "," + CF_JG + "," + CF_JDRQ + "," + CF_XZJG + "," + CF_ZT + "," + DFBM + "," + SJC + "," + BZ + "," + CF_AJMC + ")";
+                + CF_XDR_SWDJ + "," + CF_XDR_SFZ + "," + CF_FR + "," + CF_JG + "," + CF_JDRQ + "," + CF_XZJG + "," + CF_ZT + "," + DFBM + "," + SJC + "," + BZ + "," + CF_AJMC + "," + GSQX + "," + source +")";
         return s;
     }
 
     public static void clean() {
-        CF_XDR_MC = CF_FR = CF_XDR_SHXYM = CF_XDR_ZDM = CF_XDR_GSDJ = CF_XDR_SWDJ = CF_XDR_SFZ = CF_CFLB1 = CF_WSH = CF_SY = CF_YJ = CF_JG = CF_JDRQ = CF_XZJG = CF_ZT = DFBM = SJC = BZ = CF_CFMC = CF_AJMC = null;
+        CF_XDR_MC = CF_FR = CF_XDR_SHXYM = CF_XDR_ZDM = CF_XDR_GSDJ = CF_XDR_SWDJ = CF_XDR_SFZ = CF_CFLB1 = CF_WSH = CF_SY = CF_YJ = CF_JG = CF_JDRQ = CF_XZJG = CF_ZT = DFBM = SJC = BZ = CF_CFMC = CF_AJMC = GSQX = null;
     }
 
     public static boolean isEmpty() {
