@@ -1,6 +1,7 @@
 package com.whcis.data.ap.batch.totempserver;
 
 
+import com.whcis.data.ap.config.FilePathConfig;
 import com.whcis.data.ap.model.LicensingTemp;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -13,15 +14,10 @@ import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.excel.RowMapper;
 import org.springframework.batch.item.excel.mapping.PassThroughRowMapper;
 import org.springframework.batch.item.excel.poi.PoiItemReader;
-import org.springframework.batch.item.file.FlatFileItemReader;
-import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
-import org.springframework.batch.item.file.mapping.DefaultLineMapper;
-import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
-
+import org.springframework.core.io.FileSystemResource;
 
 import javax.sql.DataSource;
 
@@ -38,12 +34,16 @@ public class BatchConfiguration {
     @Autowired
     public DataSource tempDS;
 
+    @Autowired
+    private FilePathConfig filePathConfig;
+
 
     // tag::readerwriterprocessor[]
     @Bean
     public PoiItemReader reader() {
         PoiItemReader reader = new PoiItemReader();
-        reader.setResource(new ClassPathResource("sample-data.csv"));
+        reader.setLinesToSkip(1);
+        reader.setResource(new FileSystemResource(filePathConfig.getXyChina()));
         reader.setRowMapper(rowMapper());
         return reader;
     }
