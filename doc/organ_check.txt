@@ -211,6 +211,18 @@ where xk_xzjg = '武昌区教育局';
 update tab_permisson_wuhan_month
 set xk_xzjg = '武汉市新洲区行政审批局'
 where xk_xzjg = '新洲区行政审批局';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉市汉阳区城市管理委员会'
+where xk_xzjg = '汉阳区城市管理委员';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉市东西湖区人民防空办公室'
+where xk_xzjg = '东西湖区人民防空办公室';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉市公安局东西湖区交通大队'
+where xk_xzjg = '东西湖区交通大队';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉东湖新技术开发区卫生和计划生育局'
+where xk_xzjg like '武汉东湖新技术开发区%卫生和计划生育局';
 
 
 update tab_penaly_wuhan_month
@@ -340,3 +352,15 @@ where cf_xzjg = '武汉市汉阳区国税局';
 update tab_penaly_wuhan_month
 set cf_xzjg = '武汉市江汉区国家税务局'
 where cf_xzjg = '武汉市江汉区国税局';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市武昌区工商行政管理和质量技术监督局'
+where cf_xzjg = '武昌区质量技术监督局';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市江夏区公路运输管理所'
+where cf_xzjg = '江夏区公路运输管理所';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市硚口区安全生产监督管理局'
+where cf_xzjg = '硚口区安全生产监督管理局';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市江岸区经济和信息化局'
+where cf_xzjg = '江岸区经信局';
