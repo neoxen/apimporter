@@ -67,8 +67,10 @@ public class FileUtil {
     }
 
     private static void insertLicensingNT(int intRow, JdbcTemplate jdbcTemplate, int source) {
+        int index = intRow + 1;
         try {
             if (LicensingNT.XK_WSH.contains("表格说明") || LicensingNT.isEmpty()) {
+                logger.error("Line " + index + " ignored. Object name is null!");
                 return;
             }
             jdbcTemplate.execute(
@@ -76,7 +78,7 @@ public class FileUtil {
                             + LicensingNT.toValues(source));
 
         } catch (Exception e) {
-            logger.error(intRow + " Licensing insert failed: " + LicensingNT.toValues(source));
+            logger.error("Line " + index + " Licensing insert failed: " + LicensingNT.toValues(source));
             e.printStackTrace();
         } finally {
             LicensingNT.clean();
@@ -84,8 +86,10 @@ public class FileUtil {
     }
 
     private static void insertPenaltyNT(int intRow, JdbcTemplate jdbcTemplate, int source) {
+        int index = intRow + 1;
         try {
             if (PenaltyNT.CF_WSH.contains("表格说明") || PenaltyNT.isEmpty()) {
+                logger.error("Line " + index + " ignored. Object name is null!");
                 return;
             }
             jdbcTemplate.execute(
@@ -93,37 +97,41 @@ public class FileUtil {
                             + PenaltyNT.toValues(source));
         } catch (Exception e) {
             e.printStackTrace();
-            logger.error(intRow + " Penalty insert failed: " + PenaltyNT.toValues(source));
+            logger.error("Line " + index + " Penalty insert failed: " + PenaltyNT.toValues(source));
         } finally {
             PenaltyNT.clean();
         }
     }
 
     private static void insertLicensingOT(int intRow, JdbcTemplate jdbcTemplate, int source) {
+        int index = intRow + 1;
         try {
             if (LicensingOT.XK_XDR.contains("表格说明") || LicensingOT.isEmpty()) {
+                logger.error("Line " + intRow + " ignored. Object name is null!");
                 return;
             }
             jdbcTemplate.execute(
                             "INSERT INTO tab_permisson_wuhan_month (`XK_XDR`,`XK_FR`,`XK_XDR_SHXYM`,`XK_XDR_ZDM`,`XK_XDR_GSDJ`,`XK_XDR_SWDJ`,`XK_XDR_SFZ`,`XK_XMMC`,`XK_SPLB`,`XK_WSH`,`XK_NR`,`XK_JDRQ`,`XK_JZQ`,`XK_XZJG`,`XK_ZT`,`DFBM`,`SJC`,`BZ`,`QTXX`,`SJMC`, `SOURCE`) VALUES "
                                     + LicensingOT.toValues(source));
         } catch (Exception e) {
-            logger.error(intRow + " insert failed: " + LicensingOT.toValues(source));
+            logger.error("Line "+ index + " insert failed: " + LicensingOT.toValues(source));
         } finally {
             LicensingOT.clean();
         }
     }
 
     private static void insertPenaltyOT(int intRow, JdbcTemplate jdbcTemplate, int source) {
+        int index = intRow + 1;
         try {
             if (PenaltyOT.CF_XDR_MC.contains("表格说明") || PenaltyOT.isEmpty()) {
+                logger.error("Line " + intRow + " ignored. Object name is null!");
                 return;
             }
             jdbcTemplate.execute(
                             "INSERT INTO tab_penaly_wuhan_month (`CF_XDR_MC`,`CF_FR`,`CF_XDR_SHXYM`,`CF_XDR_ZDM`,`CF_XDR_GSDJ`,`CF_XDR_SWDJ`,`CF_XDR_SFZ`,`CF_CFMC`,`CF_CFLB1`,`CF_WSH`,`CF_SY`,`CF_YJ`,`CF_JG`,`CF_JDRQ`,`CF_JZRQ`,`CF_XZJG`,`CF_ZT`,`DFBM`,`SJC`,`BZ`,`QT`,`CF_AJMC`,`GSQX`, `SOURCE`) VALUES "
                                     + PenaltyOT.toValues(source));
         } catch (Exception e) {
-            logger.error(intRow + " insert failed: " + PenaltyOT.toValues(source));
+            logger.error("Line " + index + " insert failed: " + PenaltyOT.toValues(source));
         } finally {
             PenaltyOT.clean();
         }

@@ -107,6 +107,7 @@ public class UploadToCreditHubei {
         int index = intRow + 1;
         try {
             if (LicensingNT.XK_WSH.contains("表格说明") || LicensingNT.isEmpty()) {
+                logger.error("Line " + index + " ignored. Object name is null!");
                 return;
             }
             // duplication check
@@ -133,6 +134,7 @@ public class UploadToCreditHubei {
         int index = intRow + 1;
         try {
             if (PenaltyNT.CF_WSH.contains("表格说明") || PenaltyNT.isEmpty()) {
+                logger.error("Line " + index + " ignored. Object name is null!");
                 return;
             }
             // duplication check
