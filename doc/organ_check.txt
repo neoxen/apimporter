@@ -353,8 +353,37 @@ where xk_xzjg = '武汉市江汉区国税局';
 update tab_permisson_wuhan_month
 set xk_xzjg = '武汉市东西湖区国家税务局'
 where xk_xzjg = '武汉市东西湖区国税局';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉市武昌区建设委员会'
+where xk_xzjg = '武昌区建委';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉市新洲区林业局'
+where xk_xzjg = '新洲区林业局（园林）局';
 
-
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市江夏区林业和园林局'
+where cf_xzjg = '江夏区林业和园林局';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市江汉区食品药品监督管理局第六食品药品监督管理所'
+where cf_xzjg = '江汉区食品药品监督管理局第六食品药品监督管理所';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市新洲区农业委员会'
+where cf_xzjg = '新洲区农业委员会';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市江汉区环境保护局'
+where cf_xzjg = '江汉区环境保护局';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市江汉区住房保障和房屋管理局'
+where cf_xzjg = '江汉区住房保障和房屋管理局';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市江汉区安全生产监督管理局'
+where cf_xzjg = '江汉区安全生产监督管理局';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市新洲区林业局'
+where cf_xzjg = '新洲区林业局';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市森林公安局江夏区分局'
+where cf_xzjg = '武汉市森林公安局江夏分局';
 update tab_penaly_wuhan_month
 set cf_xzjg = '武汉市洪山区国家税务局'
 where cf_xzjg = '武汉市洪山区国税局';
@@ -458,3 +487,9 @@ where cf_xzjg = '武汉经济技术开发区（汉南区）安监局';
 update tab_penaly_wuhan_month
 set cf_xzjg = '武汉经济技术开发区（汉南区）城市管理局'
 where cf_xzjg = '武汉经济技术开发区（汉南区）纱帽街城管执法中队';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市东西湖区卫生和计划生育委员会'
+where cf_xzjg = '东西湖区卫计生委';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市东西湖区国土资源和规划局'
+where cf_xzjg = '东西湖区国土资源和规划局';
