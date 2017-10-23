@@ -29,6 +29,9 @@ public class UploadToCreditHubei {
 
     private ArrayList<Record> duplicateEntryCH;
 
+    private String sqlInsertLicensings = "";
+    private String sqlInsertPenalties = "";
+
     @Autowired
     public UploadToCreditHubei(FilePathConfig filePathConfig, JdbcTemplate xychinaJdbcTemplate) {
         this.filePathConfig = filePathConfig;
@@ -82,6 +85,28 @@ public class UploadToCreditHubei {
                 insertPenalty(i);
             }
         }
+
+        try {
+            if (type == 0) {
+                if (!sqlInsertLicensings.equals("")) {
+                    sqlInsertLicensings = sqlInsertLicensings.substring(0, sqlInsertLicensings.length()-1);
+                    xychinaJdbcTemplate.execute(
+                            "INSERT INTO licensing_tem (`XK_WSH`,`XK_XMMC`,`XK_SPLB`,`XK_NR`,`XK_XDR`,`XK_XDR_SHXYM`,`XK_XDR_ZDM`,`XK_XDR_GSDJ`,`XK_XDR_SWDJ`,`XK_XDR_SFZ`,`XK_FR`,`XK_JDRQ`,`XK_JZQ`,`XK_XZJG`,`XK_ZT`,`DFBM`,`SJC`,`BZ`, `SJMC`, `SOURCE`) VALUES "
+                                    + sqlInsertLicensings);
+                }
+            } else {
+                if (!sqlInsertPenalties.equals("")) {
+                    sqlInsertPenalties = sqlInsertPenalties.substring(0,sqlInsertPenalties.length()-1);
+                    xychinaJdbcTemplate.execute(
+                            "INSERT INTO penaly_tem (`CF_WSH`,`CF_CFMC`,`CF_CFLB1`,`CF_CFLB2`,`CF_SY`,`CF_YJ`,`CF_XDR_MC`,`CF_XDR_SHXYM`,`CF_XDR_ZDM`,`CF_XDR_GSDJ`,`CF_XDR_SWDJ`,`CF_XDR_SFZ`,`CF_FR`,`CF_JG`,`CF_JDRQ`,`CF_XZJG`,`CF_ZT`,`DFBM`,`SJC`,`BZ`,`CF_AJMC`, `GSQX`, `SOURCE`) VALUES "
+                                    + sqlInsertPenalties);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Inserting failed!");
+            e.printStackTrace();
+        }
+
         if (type == 0) {
             logger.info("<===== Finish inserting licensings ...");
         } else {
@@ -118,9 +143,7 @@ public class UploadToCreditHubei {
                 duplicateEntryCH.add(r);
                 return;
             }
-            xychinaJdbcTemplate.execute(
-                            "INSERT INTO licensing_tem (`XK_WSH`,`XK_XMMC`,`XK_SPLB`,`XK_NR`,`XK_XDR`,`XK_XDR_SHXYM`,`XK_XDR_ZDM`,`XK_XDR_GSDJ`,`XK_XDR_SWDJ`,`XK_XDR_SFZ`,`XK_FR`,`XK_JDRQ`,`XK_JZQ`,`XK_XZJG`,`XK_ZT`,`DFBM`,`SJC`,`BZ`, `SJMC`, `SOURCE`) VALUES "
-                                    + LicensingNT.toValues(1));
+            sqlInsertLicensings = sqlInsertLicensings + LicensingNT.toValues(1) + ",";
 
         } catch (Exception e) {
             logger.error("Line " + index + " Insert failed: " + LicensingNT.toValues(1));
@@ -144,9 +167,7 @@ public class UploadToCreditHubei {
                 duplicateEntryCH.add(r);
                 return;
             }
-            xychinaJdbcTemplate.execute(
-                            "INSERT INTO penaly_tem (`CF_WSH`,`CF_CFMC`,`CF_CFLB1`,`CF_CFLB2`,`CF_SY`,`CF_YJ`,`CF_XDR_MC`,`CF_XDR_SHXYM`,`CF_XDR_ZDM`,`CF_XDR_GSDJ`,`CF_XDR_SWDJ`,`CF_XDR_SFZ`,`CF_FR`,`CF_JG`,`CF_JDRQ`,`CF_XZJG`,`CF_ZT`,`DFBM`,`SJC`,`BZ`,`CF_AJMC`, `GSQX`, `SOURCE`) VALUES "
-                                    + PenaltyNT.toValues(1));
+            sqlInsertPenalties = sqlInsertPenalties + PenaltyNT.toValues(1) + ",";
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("Line " + index + " Insert failed: " + PenaltyNT.toValues(1));

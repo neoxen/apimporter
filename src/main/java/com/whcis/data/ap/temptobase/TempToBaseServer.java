@@ -31,6 +31,9 @@ public class TempToBaseServer {
     private Set<String> organNotFound = new HashSet<>();
     private Map<Integer, Date> dateNotProper = new HashMap<Integer, Date>();
 
+    private String sqlInsertLicensings = "";
+    private String sqlInsertPenalties = "";
+
     @Autowired
     public TempToBaseServer(JdbcTemplate tempJdbcTemplate, JdbcTemplate baseJdbcTemplate) {
         this.tempJdbcTemplate = tempJdbcTemplate;
@@ -113,12 +116,13 @@ public class TempToBaseServer {
 
     private void setLicensingData() {
         String query = "select * from tab_permisson_wuhan_month";
+        String insertSQL = "INSERT INTO ap_administrative_licensing_temp (`object_name`,`current_state`,`legal_rep`,`credit_code`,`org_code`,`ic_code`,`tax_code`,`identity_code`,`title`,`licensing_type`,`licensing_code`,`licensing_detail`,`effective_date`,`invalid_date`,`licensing_organ`,`local_code`,`update_time`,`remark`, `import_date`,`reserve1`, `reserve3`, `source`) VALUES ";
 
         try {
             SqlRowSet rowSet = tempJdbcTemplate.queryForRowSet(query);
+
             while (rowSet.next()) {
                 String sql = "";
-                String insertSQL = "INSERT INTO ap_administrative_licensing_temp (`object_name`,`current_state`,`legal_rep`,`credit_code`,`org_code`,`ic_code`,`tax_code`,`identity_code`,`title`,`licensing_type`,`licensing_code`,`licensing_detail`,`effective_date`,`invalid_date`,`licensing_organ`,`local_code`,`update_time`,`remark`, `import_date`,`reserve1`, `reserve3`, `source`) VALUES ";
 
                 try {
                     sql = "(" + withNull(rowSet.getString("XK_XDR"))
@@ -179,14 +183,20 @@ public class TempToBaseServer {
                         continue;
                     }
 
+                    sqlInsertLicensings = sqlInsertLicensings + sql + ",";
 
-                    baseJdbcTemplate.execute(insertSQL+sql);
                 } catch (Exception e) {
                     logger.error(rowSet.getInt("id") + " failed: " + sql);
                     e.printStackTrace();
                 }
             }
+
+            if (!sqlInsertLicensings.equals("")) {
+                sqlInsertLicensings = sqlInsertLicensings.substring(0,sqlInsertLicensings.length()-1);
+                baseJdbcTemplate.execute(insertSQL+sqlInsertLicensings);
+            }
         } catch (Exception e) {
+            logger.error("Inserting failed!");
             e.printStackTrace();
         }
     }
@@ -224,11 +234,13 @@ public class TempToBaseServer {
 
     private void setPenaltyData() {
         String query = "select * from tab_penaly_wuhan_month";
+        String insertSQL = "INSERT INTO ap_administrative_penalty_temp (`object_name`,`current_state`,`legal_rep`,`credit_code`,`org_code`,`ic_code`,`tax_code`,`identity_code`,`title`,`penalty_type`,`penalty_code`,`penalty_cause`,`penalty_basis`,`penalty_result`,`effective_date`,`invalid_date`,`penalty_organ`,`local_code`,`update_time`,`remark`, `import_date`, `reserve1`, `reserve3`, `effective_period`, `source`) VALUES ";
+
         try {
             SqlRowSet rowSet = tempJdbcTemplate.queryForRowSet(query);
             while (rowSet.next()) {
                 String sql = "";
-                String insertSQL = "INSERT INTO ap_administrative_penalty_temp (`object_name`,`current_state`,`legal_rep`,`credit_code`,`org_code`,`ic_code`,`tax_code`,`identity_code`,`title`,`penalty_type`,`penalty_code`,`penalty_cause`,`penalty_basis`,`penalty_result`,`effective_date`,`invalid_date`,`penalty_organ`,`local_code`,`update_time`,`remark`, `import_date`, `reserve1`, `reserve3`, `effective_period`, `source`) VALUES ";
+
                 try {
                     sql = "(" + withNull(rowSet.getString("CF_XDR_MC"))
                             + ","
@@ -294,13 +306,19 @@ public class TempToBaseServer {
                         continue;
                     }
 
-                    baseJdbcTemplate.execute(insertSQL + sql);
+                    sqlInsertPenalties = sqlInsertPenalties + sql + ",";
                 } catch (Exception e) {
                     logger.error(rowSet.getInt("id") + " failed: " + sql);
                     e.printStackTrace();
                 }
             }
+
+            if (!sqlInsertPenalties.equals("")) {
+                sqlInsertPenalties = sqlInsertPenalties.substring(0,sqlInsertPenalties.length()-1);
+                baseJdbcTemplate.execute(insertSQL + sqlInsertPenalties);
+            }
         } catch (Exception e) {
+            logger.error("Inserting failed!");
             e.printStackTrace();
         }
 
