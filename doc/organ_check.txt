@@ -359,7 +359,19 @@ where xk_xzjg = '武昌区建委';
 update tab_permisson_wuhan_month
 set xk_xzjg = '武汉市新洲区林业局'
 where xk_xzjg = '新洲区林业局（园林）局';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉市东西湖区农业委员会'
+where xk_xzjg = '东西湖区农业委员会';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉市人力资源和社会保障局东湖新技术开发区分局'
+where xk_xzjg = '武汉东湖新技术开发区人力资源和社会保障局';
 
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市洪山区住房保障和房屋管理局'
+where cf_xzjg = '武汉市洪山区房管局';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市洪山区物价局'
+where cf_xzjg = '洪山区物价局';
 update tab_penaly_wuhan_month
 set cf_xzjg = '武汉市江夏区林业和园林局'
 where cf_xzjg = '江夏区林业和园林局';
