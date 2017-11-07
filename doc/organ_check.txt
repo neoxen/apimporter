@@ -479,6 +479,12 @@ set cf_xzjg = '武汉市武昌区住房保障和房屋管理局'
 where cf_xzjg = '武昌区住房保障和房屋管理局';
 
 update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市洪山区水务局'
+where cf_xzjg = '洪山区水务局';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市硚口区城市管理执法大队宗关中队'
+where cf_xzjg = '硚口区城管执法大队宗关中队';
+update tab_penaly_wuhan_month
 set cf_xzjg = '武汉市武昌区卫生和计划生育委员会'
 where cf_xzjg = '武汉市武昌区卫生和计划生委员会';
 update tab_penaly_wuhan_month
