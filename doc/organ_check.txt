@@ -368,6 +368,9 @@ where xk_xzjg = '武汉东湖新技术开发区人力资源和社会保障局';
 update tab_permisson_wuhan_month
 set xk_xzjg = '武汉市江汉区文化体育和旅游局'
 where xk_xzjg = '武汉市江汉区文化局';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉市东西湖区水务局'
+where xk_xzjg = '东西湖区水务局';
 
 update tab_penaly_wuhan_month
 set cf_xzjg = '武汉市洪山区住房保障和房屋管理局'
