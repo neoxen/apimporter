@@ -483,6 +483,12 @@ where cf_xzjg = '武汉市武昌区建设委员';
 update tab_penaly_wuhan_month
 set cf_xzjg = '武汉市武昌区住房保障和房屋管理局'
 where cf_xzjg = '武昌区住房保障和房屋管理局';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉东湖新技术开发区环境保护局'
+where cf_xzjg = '东湖新技术开发区环境保护局';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市江夏区农业委员会'
+where cf_xzjg = '江夏区农业委员会';
 
 update tab_penaly_wuhan_month
 set cf_xzjg = '武汉经济技术开发区（汉南区）城市管理局'
