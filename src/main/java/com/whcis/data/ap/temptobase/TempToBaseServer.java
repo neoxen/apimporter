@@ -216,14 +216,41 @@ public class TempToBaseServer {
 
     private void checkingLicensingDates() {
         String jdrqQuery = "select id, xk_jdrq from tab_permisson_wuhan_month WHERE xk_jdrq > now()";
+        String jzqQuery = "select id, xk_jzq from tab_permisson_wuhan_month WHERE xk_jzq < xk_jdrq";
         String sjcQuery = "select id, sjc from tab_permisson_wuhan_month WHERE sjc > now()";
+
+        String jdrqOneYearBefore = "select id, xk_jdrq from tab_permisson_wuhan_month WHERE timestampdiff (DAY, xk_jdrq, now()) > 365";
+        String jdrqOneYearLater = "select id, xk_jdrq from tab_permisson_wuhan_month WHERE timestampdiff (DAY, now(),xk_jdrq) > 365";
+
+        String sjcOneYearBefore = "select id, sjc from tab_permisson_wuhan_month WHERE timestampdiff (DAY, sjc, now()) > 365";
+        String sjcOneYearLater = "select id, sjc from tab_permisson_wuhan_month WHERE timestampdiff (DAY, now(),sjc) > 365";
 
         try {
             SqlRowSet rowSet = tempJdbcTemplate.queryForRowSet(jdrqQuery);
             while (rowSet.next()) {
                 dateNotProper.put(rowSet.getInt("id"), rowSet.getDate("xk_jdrq"));
             }
+            rowSet = tempJdbcTemplate.queryForRowSet(jdrqOneYearBefore);
+            while (rowSet.next()) {
+                dateNotProper.put(rowSet.getInt("id"), rowSet.getDate("xk_jdrq"));
+            }
+            rowSet = tempJdbcTemplate.queryForRowSet(jdrqOneYearLater);
+            while (rowSet.next()) {
+                dateNotProper.put(rowSet.getInt("id"), rowSet.getDate("xk_jdrq"));
+            }
+            rowSet = tempJdbcTemplate.queryForRowSet(jzqQuery);
+            while (rowSet.next()) {
+                dateNotProper.put(rowSet.getInt("id"), rowSet.getDate("xk_jzq"));
+            }
             rowSet = tempJdbcTemplate.queryForRowSet(sjcQuery);
+            while (rowSet.next()) {
+                dateNotProper.put(rowSet.getInt("id"), rowSet.getDate("sjc"));
+            }
+            rowSet = tempJdbcTemplate.queryForRowSet(sjcOneYearBefore);
+            while (rowSet.next()) {
+                dateNotProper.put(rowSet.getInt("id"), rowSet.getDate("sjc"));
+            }
+            rowSet = tempJdbcTemplate.queryForRowSet(sjcOneYearLater);
             while (rowSet.next()) {
                 dateNotProper.put(rowSet.getInt("id"), rowSet.getDate("sjc"));
             }
@@ -341,12 +368,34 @@ public class TempToBaseServer {
         String jdrqQuery = "select id, cf_jdrq from tab_penaly_wuhan_month WHERE cf_jdrq > now()";
         String sjcQuery = "select id, sjc from tab_penaly_wuhan_month WHERE sjc > now()";
 
+        String jdrqOneYearBefore = "select id, cf_jdrq from tab_penaly_wuhan_month WHERE timestampdiff (DAY, cf_jdrq, now()) > 365";
+        String jdrqOneYearLater = "select id, cf_jdrq from tab_penaly_wuhan_month WHERE timestampdiff (DAY, now(),cf_jdrq) > 365";
+
+        String sjcOneYearBefore = "select id, sjc from tab_penaly_wuhan_month WHERE timestampdiff (DAY, sjc, now()) > 365";
+        String sjcOneYearLater = "select id, sjc from tab_penaly_wuhan_month WHERE timestampdiff (DAY, now(), sjc) > 365";
+
         try {
             SqlRowSet rowSet = tempJdbcTemplate.queryForRowSet(jdrqQuery);
             while (rowSet.next()) {
                 dateNotProper.put(rowSet.getInt("id"), rowSet.getDate("cf_jdrq"));
             }
+            rowSet = tempJdbcTemplate.queryForRowSet(jdrqOneYearBefore);
+            while (rowSet.next()) {
+                dateNotProper.put(rowSet.getInt("id"), rowSet.getDate("cf_jdrq"));
+            }
+            rowSet = tempJdbcTemplate.queryForRowSet(jdrqOneYearLater);
+            while (rowSet.next()) {
+                dateNotProper.put(rowSet.getInt("id"), rowSet.getDate("cf_jdrq"));
+            }
             rowSet = tempJdbcTemplate.queryForRowSet(sjcQuery);
+            while (rowSet.next()) {
+                dateNotProper.put(rowSet.getInt("id"), rowSet.getDate("sjc"));
+            }
+            rowSet = tempJdbcTemplate.queryForRowSet(sjcOneYearBefore);
+            while (rowSet.next()) {
+                dateNotProper.put(rowSet.getInt("id"), rowSet.getDate("sjc"));
+            }
+            rowSet = tempJdbcTemplate.queryForRowSet(sjcOneYearLater);
             while (rowSet.next()) {
                 dateNotProper.put(rowSet.getInt("id"), rowSet.getDate("sjc"));
             }
