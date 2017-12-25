@@ -386,9 +386,26 @@ where xk_xzjg = '汉阳区城管委';
 update tab_permisson_wuhan_month
 set xk_xzjg = '武汉市汉阳区园林局'
 where xk_xzjg = '汉阳区园林局';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉市蔡甸区公路运输管理所'
+where xk_xzjg = '蔡甸区公路运输管理所';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉市蔡甸区公路管理局'
+where xk_xzjg = '蔡甸区公路管理局';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉市蔡甸区国土资源和规划局'
+where xk_xzjg = '蔡甸区国土资源和规划局';
 
 
-
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市蔡甸区城市管理执法局'
+where cf_xzjg = '蔡甸区城市管理执法局';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市蔡甸区农业委员会'
+where cf_xzjg = '蔡甸区农业委员会';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市蔡甸区国土资源和规划局'
+where cf_xzjg = '蔡甸区国土资源和规划局';
 update tab_penaly_wuhan_month
 set cf_xzjg = '武汉市洪山区住房保障和房屋管理局'
 where cf_xzjg = '武汉市洪山区房管局';

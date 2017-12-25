@@ -1,0 +1,6 @@
+INSERT INTO ap_organ (name, abbr_name,code,is_valid,type,pid,has_promise)
+VALUES('武汉市新洲区林木种苗管理站', '武汉市新洲区林木种苗管理站', 4,0,0,65,0);
+
+
+SELECT * FROM ap_organ
+WHERE name LIKE '%新洲%';
