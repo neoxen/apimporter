@@ -395,6 +395,33 @@ where xk_xzjg = '蔡甸区公路管理局';
 update tab_permisson_wuhan_month
 set xk_xzjg = '武汉市蔡甸区国土资源和规划局'
 where xk_xzjg = '蔡甸区国土资源和规划局';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉市蔡甸区公路运输管理所'
+where xk_xzjg = '蔡甸区公路运输管理所';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉市蔡甸区环境保护局'
+where xk_xzjg = '武汉市蔡甸区环保局';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉市蔡甸区行政审批局'
+where xk_xzjg = '蔡甸区行政审批局';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉市蔡甸区公路管理局'
+where xk_xzjg = '蔡甸区公路管理局';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉市蔡甸区工商行政管理局'
+where xk_xzjg = '蔡甸区工商局';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉经济技术开发区国家税务局'
+where xk_xzjg = '武汉市经济技术开发区国家税务局';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉东湖新技术开发区国家税务局'
+where xk_xzjg = '武汉市东湖新技术开发区国家税务局';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉市江汉区行政审批局'
+where xk_xzjg = '江汉区行政审批局';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉市汉阳区发展和改革委员会'
+where xk_xzjg = '武汉市汉阳区发改委';
 
 
 update tab_penaly_wuhan_month
@@ -566,3 +593,24 @@ where cf_xzjg = '东西湖区卫计生委';
 update tab_penaly_wuhan_month
 set cf_xzjg = '武汉市东西湖区国土资源和规划局'
 where cf_xzjg = '东西湖区国土资源和规划局';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市蔡甸区国家税务局'
+where cf_xzjg = '武汉市蔡甸区国税局';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市硚口区国家税务局'
+where cf_xzjg = '武汉市硚口区国税局';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市新洲区国家税务局'
+where cf_xzjg = '武汉市新洲区国税局';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市国家税务局第四稽查局'
+where cf_xzjg = '武汉市国税局第四稽查局';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市客运出租汽车管理处'
+where cf_xzjg = '市客管处';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市蔡甸区城市管理执法局'
+where cf_xzjg = '蔡甸区城市管理执法局';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市蔡甸区环境保护局'
+where cf_xzjg = '蔡甸区环保局';
