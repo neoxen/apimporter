@@ -430,6 +430,12 @@ set xk_xzjg = '武汉市江岸区行政审批局'
 where xk_xzjg = '江岸区行审审批局';
 
 update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市东西湖区农业委员会'
+where cf_xzjg = '东西湖区农业委员会';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉经济技术开发区（汉南区）城市管理局邓南街城市管理执法中队'
+where cf_xzjg = '武汉经济技术开发区（汉南区）邓南街城管执法中队';
+update tab_penaly_wuhan_month
 set cf_xzjg = '武汉经济技术开发区（汉南区）城市管理局沌口街城市管理执法中队'
 where cf_xzjg = '沌口街城管执法中队';
 update tab_penaly_wuhan_month
