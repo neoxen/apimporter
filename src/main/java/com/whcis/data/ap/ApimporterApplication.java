@@ -3,7 +3,6 @@ package com.whcis.data.ap;
 import com.whcis.data.ap.config.FilePathConfig;
 import com.whcis.data.ap.newtemplate.NewTemplateUploadToTempServer;
 import com.whcis.data.ap.newtemplate.UploadToCreditHubei;
-import com.whcis.data.ap.oldtemplate.OldTemplateToTempServer;
 import com.whcis.data.ap.temptobase.ServerInfo;
 import com.whcis.data.ap.temptobase.TempToBaseServer;
 import com.whcis.data.ap.temptobase.TruncateTempTables;
@@ -16,8 +15,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-@SpringBootApplication
-@EnableConfigurationProperties
+//@SpringBootApplication
+//@EnableConfigurationProperties
 public class ApimporterApplication implements CommandLineRunner {
 
 	private Report report = new Report();
