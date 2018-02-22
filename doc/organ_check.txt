@@ -428,7 +428,19 @@ where xk_xzjg = '江岸区行政局';
 update tab_permisson_wuhan_month
 set xk_xzjg = '武汉市江岸区行政审批局'
 where xk_xzjg = '江岸区行审审批局';
+update tab_permisson_wuhan_month
+set xk_xzjg = '武汉市公安局新洲区分局交通巡逻民警大队'
+where xk_xzjg = '新洲交通大队';
 
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉经济技术开发区（汉南区）城市管理局'
+where cf_xzjg = '纱帽街城管执法中队';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市武昌区民政事务管理委员会'
+where cf_xzjg = '武昌区民政事务管理委员会';
+update tab_penaly_wuhan_month
+set cf_xzjg = '武汉市洪山区建设局'
+where cf_xzjg = '洪山区建设局';
 update tab_penaly_wuhan_month
 set cf_xzjg = '武汉市东西湖区农业委员会'
 where cf_xzjg = '东西湖区农业委员会';
