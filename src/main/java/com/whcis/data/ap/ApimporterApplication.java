@@ -46,7 +46,7 @@ public class ApimporterApplication implements CommandLineRunner {
 //		xyChina();
 
 		// 2
-		tempServer();
+//		tempServer();
 //		tempServerWhcic();
 
 		// 3
@@ -74,13 +74,13 @@ public class ApimporterApplication implements CommandLineRunner {
 		NewTemplateUploadToTempServer newToTemp = new NewTemplateUploadToTempServer(filePathConfig, tempJdbcTemplate);
 		newToTemp.stepTwo();
 		newToTemp.stepThree();
-		new OldTemplateToTempServer(filePathConfig, tempJdbcTemplate).stepFour();
+//		new OldTemplateToTempServer(filePathConfig, tempJdbcTemplate).stepFour();
 	}
 
 	public void tempServerWhcic() {
 		TruncateTempTables.truncateTempTables(tempJdbcTemplate);
 		NewTemplateUploadToTempServer newToTemp = new NewTemplateUploadToTempServer(filePathConfig, tempJdbcTemplate);
-		newToTemp.stepTwo();
+		newToTemp.stepWhcic();
 	}
 
 	public void checkTempOrgans(){
