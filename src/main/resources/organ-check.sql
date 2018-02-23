@@ -109,7 +109,6 @@ update tab_permisson_wuhan_month set xk_xzjg = '武汉市汉阳区发展和改�
 update tab_permisson_wuhan_month set xk_xzjg = '武汉市江岸区行政审批局' where xk_xzjg = '江岸区行政局';
 update tab_permisson_wuhan_month set xk_xzjg = '武汉市江岸区行政审批局' where xk_xzjg = '江岸区行审审批局';
 update tab_permisson_wuhan_month set xk_xzjg = '武汉市公安局新洲区分局交通巡逻民警大队' where xk_xzjg = '新洲交通大队';
-
 update tab_penaly_wuhan_month set cf_xzjg = '武汉市青山区城市管理委员会' where cf_xzjg = '青山区城市管理委员会';
 update tab_penaly_wuhan_month set cf_xzjg = '武汉市青山区文化市场综合执法大队' where cf_xzjg = '青山区文化市场综合执法大队';
 update tab_penaly_wuhan_month set cf_xzjg = '武汉市江岸区卫生和计划生育委员会' where cf_xzjg = '江岸区卫生和计划生育委员会';
