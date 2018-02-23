@@ -33,25 +33,26 @@ public class AdministrativePublicityImportingCommands {
     @Qualifier("baseJdbcTemplate")
     private JdbcTemplate baseJdbcTemplate;
 
-    @ShellMethod("#5 将临时库中标准化的双公示数据导入双公示基础库")
+    @ShellMethod("#6 将临时库中标准化的双公示数据导入双公示基础库")
     public void base() {
         init();
         baseServer();
         reporting();
     }
 
-    @ShellMethod("#4 在临时库中检查是否存在错误导入的时间字段")
+    @ShellMethod("#5 在临时库中检查是否存在错误导入的时间字段")
     public void date() {
-        init();
         checkDateParsing();
-        reporting();
     }
 
-    @ShellMethod("#3 在临时库中检查行政单位名称")
+    @ShellMethod("#4 在临时库中检查行政单位名称")
     public void organ() {
-        init();
         checkTempOrgans();
-        reporting();
+    }
+
+    @ShellMethod("#3 在临时库中初步规范化行政单位名称")
+    public void normalize() {
+        normalizeOrgan();
     }
 
     @ShellMethod("#2 向临时库导入汇集系统双公示数据")
@@ -97,6 +98,11 @@ public class AdministrativePublicityImportingCommands {
         TruncateTempTables.truncateTempTables(tempJdbcTemplate);
         NewTemplateUploadToTempServer newToTemp = new NewTemplateUploadToTempServer(filePathConfig, tempJdbcTemplate);
         newToTemp.stepWhcic();
+    }
+
+    public void normalizeOrgan(){
+        NewTemplateUploadToTempServer newToTemp = new NewTemplateUploadToTempServer(filePathConfig, tempJdbcTemplate);
+            newToTemp.stepNormalization();
     }
 
     public void checkTempOrgans(){
